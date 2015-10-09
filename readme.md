@@ -1,49 +1,106 @@
 # 2048 Justice
 
-**Game clone designed by Tara Strauss**
+__*Game clone designed by Tara Strauss*__
 
-###User Stories
+###User Stories (current)
 
-	**Role**: anyone ages 8 to ~ , mostly people who like brain teasers and logic puzzles or are nerdy about DC superheroes
-	**Goal**: to combine blocks of the same type to the 11th degree. Usually this means until you reach 2048, but in my version it will mean until you create the justice league!
-	**Reasons**: For logical, SUPER fun game time! Also bragging rights! 
-	**Features:**
-		- Reset game button
-		- Keep track of how many tries it takes to win the game
-		- Keep track of how many moves a player made this round
-		- Alert user when they won, how many tries it took them and how many moves it took them
-		- Give user instructions
-	**2.0 Features**	
-		- Allow user to choose any number 1-9 to start with
-		- Undo function (and alert user if they won without using undo)
-		- E-mail user a sheet for them to brag about how quickly they won!
-		- Username and login (local storage)
+**Role**: anyone ages 8 to ~ , mostly people who like brain teasers and logic puzzles or are nerdy about DC superheroes
+
+**Goal**: to combine blocks of the same (superhero) type to the 11th degree. Usually this means until you reach 2048, but in this version it will mean until you create the justice league!
+
+**Reasons**: For logical, SUPER fun game time! Also bragging rights! 
+
+###Sprint Planning (MVP)
+
+![alt text](http://i.imgur.com/XUYYClN.jpg?1 =250px)
+
+- I can use up, down, right and left buttons to move the boxes on the board
+
+- I can reset the game using a reset button to try again
+
+- I can keep track of how many tries it takes to win the game to brag to my friends
+
+- I can keep track of how many moves I made this round to brag to my friends (if I win in fewer moves)
+
+- I am alerted  when I win, how many tries it took me to win and how many moves it took me to win (so I can brag to friends!)
+
+- I get instructions to play the game 
+
+- I see animated boxes moving across the board (very basic animation) so it looks pleasing and simple
+
+- I see buttons with superhero symbols faded in the background, with a number in the foreground so I feel like I'm forming the justice league if I win!
+
+![alt text](http://i.imgur.com/ZaBqGM5.jpg?2 =250px)
+
+###2.0 Features (icebox)
+
+- I can choose any number 1-9 to start with (or in this case, any superhero!)
+
+- I can use an undo button (and I am alerted if I won without using undo)
+
+- I can choose to receive a sheet VIA e-mail with details about how quickly I won (again, for bragging rights!)! (or possibly I can post to facebook?)
+
+- I can create a username and login to keep track of how awesome I am a creating the justice league (local storage)
+
+- I see more advanced animation when I win
+
+- I see a timer (I must make a move in 0:05 seconds!)
+
+- I have to memorize where all the boxes are because I see the board flass off after a new box appears. This will make the game more challenging!
+
+![alt text](http://i.imgur.com/GNn8ABi.jpg?1 =250px)
+
 
 ###Game plan
 
-	**Day 1**
-		* Get basic HTML and CSS set up, not pretty but at least laid out and working
-		* Start structuring javascript functions
-	**Day 2**
-		* Define variables and constructor functions
-		* Set up key up functions
-	**Day 3**
-		* Get math to work
-		* Get moves made, tries and highest block to work
-	**Day 4**
-		* Get reset button to work
-		* Get colors to change on math/combine
-	**Day 5**
-		* Finish graphics & css
-		* Test game & get feedback
-		* Fix bugs
-	**Day 6**
-		* 2.0! 
-		* undo 
-		* number picker
-		* local storage/keep track in cache
-	**Day 7**
-		* Extra time to fix stuff!
+**Day 1**
+
+* Get basic HTML and CSS set up, not pretty but at least laid out and working
+
+* Start structuring javascript functions
+
+**Day 2**
+
+* Define variables and constructor functions
+
+* Set key up functions
+
+**Day 3**
+
+* Get math to work
+
+* Get moves made, tries and highest block to work
+
+**Day 4**
+
+* Get reset button to work
+
+* Get colors to change on math/combine
+
+**Day 5**
+
+* Finish graphics & css
+
+* Test game & get feedback
+
+* Fix bugs
+
+**Day 6**
+
+* 2.0! 
+
+* undo 
+
+* number picker
+
+* local storage/keep track in cache
+
+**Day 7**
+
+* Extra time to fix stuff!
+
+* Add icebox features (timer?)
+
 
 
 
