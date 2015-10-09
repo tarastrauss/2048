@@ -10,13 +10,17 @@ __*Game clone designed by Tara Strauss*__
 
 **Reasons**: For logical, SUPER fun game time! Also bragging rights! 
 
+[Click here to see the original game](https://gabrielecirulli.github.io/2048/)
+
+
+
 -> ![alt text](http://i.imgur.com/XUYYClN.jpg?1 =250px) <-
 
 -> *(First wireframe, hand-drawn)* <-
 
 ###Sprint Planning (MVP)
 
-- *(current)* As a player, I get instructions to play the game. It's themed. I'm told it's the year 2048 and there is a crisis between timeslines. I need to help Superman and his friends united with their altnerate selves in order to form the ultimate timeline Justice League.
+- *(current)* As a player, I get instructions to play the game. It's themed. I'm told it's the year 2048 and there is a crisis between timelines. I need to help Superman and his friends unite with their altnerate selves in order to form the ultimate timeline Justice League.
 
 - *(current)* As a player, I can use up, down, right and left buttons to move the boxes on the board
 
