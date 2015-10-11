@@ -88,13 +88,13 @@ var keyDown = function () {
 			case 37: console.log ('left')
 			break;
 
-			case 38: moveUp()
+			case 38: moveUp();
 			break;
 
 			case 39: console.log ('right')
 			break;
 
-			case 40: console.log ('down')
+			case 40: moveDown();
 			break;
 		}
 		//key.preventDefault();
@@ -103,39 +103,54 @@ var keyDown = function () {
 };
 keyDown();
 
-
-
 var moveUp = function () {
 	var hitTop;
-	jsArray.forEach(function(row, rowIndex) {
+	var rowIndex;
+	jsArray.forEach(function(row, originalRowIndex) {
 		row.forEach(function(box, colIndex) {
 			hitTop = false;
+			rowIndex = originalRowIndex;
+			console.log('test for each. col: ' + colIndex + ' row: ' + rowIndex);
 			do {
 				switch (rowIndex) {
-					//move the box up if it is on row 3
-					case 3:	//row.forEach(function(box, colIndex) {
-						console.log('test 3');
-						//if the box is not empty
+					//break the loop if the box is on row 0
+					case 0: 
+						hitTop = true;
+						console.log('test 0');
+					break;	
+					//move the box up if it is on row 1
+					case 1:	//row.forEach(function(box, colIndex) {
+						console.log('test 1');
+
+						//if the box on row 1 is not empty
 						if (jsArray[rowIndex][colIndex] !== 0) {
-							//if the box above it on row 2 is empty
+							//if the box directly above it on row 0 IS empty
 							if (jsArray[rowIndex - 1][colIndex] === 0) {
-								//set the box in row 2 to the current box
+								//set the box above it to the value of the current box
 								jsArray[rowIndex - 1][colIndex] = jsArray[rowIndex][colIndex];
-							// if the box on row 2 is not empty and is equal to the current box
-							} else if (jsArray[rowIndex - 1][colIndex] === jsArray[rowIndex][colIndex]) {
-								//add the two together and store the value in the box on row 2
-								jsArray[rowIndex - 1][colIndex] += jsArray[rowIndex][colIndex];
-								//make the current box empty
+								//and make the current box empty
 								jsArray[rowIndex][colIndex] = 0;
+								//check the box above
+								rowIndex--;
+							//if the box directly above is NOT empty and is equal to the box in row 1
+							} else if (jsArray[rowIndex - 1][colIndex] === jsArray[rowIndex][colIndex]) {
+								//add the two together and store them in the box above
+								jsArray[rowIndex - 1][colIndex] += jsArray[rowIndex][colIndex];
+								//and make the current box empty
+								jsArray[rowIndex][colIndex] = 0;
+								//check the box above
+								rowIndex--;
 							// if the box above is not empty and is not equal to the current box
 							} else {
-								//stop the loop cause you hit the top!
+								//you hit the top, move on
 								hitTop = true;
 							}
+						} else {
+							//if the box is empty, move on
+							hitTop = true;
 						}
 					//});
-					//move the box up if it is on row 2
-					break;
+					break;	
 					case 2:	//row.forEach(function(box, colIndex) {
 						console.log('test 2');
 						//if the box on row 2 is not empty
@@ -146,55 +161,63 @@ var moveUp = function () {
 								jsArray[rowIndex - 1][colIndex] = jsArray[rowIndex][colIndex];
 								//make the current box empty
 								jsArray[rowIndex][colIndex] = 0;
+								//check the box above
+								rowIndex--;
 							//if the box in row 1 is NOT empty and is equal to the value of the current box
 							} else if (jsArray[rowIndex - 1][colIndex] === jsArray[rowIndex][colIndex]) {
 								//add the two boxes together and store the value in the box in row 1
 								jsArray[rowIndex - 1][colIndex] += jsArray[rowIndex][colIndex];
 								//make the current box empty
 								jsArray[rowIndex][colIndex] = 0;
+								//check the box above
+								rowIndex--;
 							// if the box above is not empty and is not equal to the current box
 							} else {
-								//stop the loop cause you hit the top!
+								//you hit the top, move on
 								hitTop = true;
 							}
+						} else {
+							//if the box is empty, move on
+							hitTop = true;
 						}
 					//});
 					break;
-					//move the box up if it is on row 1
-					case 1:	//row.forEach(function(box, colIndex) {
-												console.log('test 1');
-
-						//if the box on row 1 is not empty
+					//move the box up if it is on row 3
+					case 3:	//row.forEach(function(box, colIndex) {
+						console.log('test 3');
+						//if the box is not empty
 						if (jsArray[rowIndex][colIndex] !== 0) {
-							//if the box directly above it on row 0 IS empty
+							//if the box above it on row 2 is empty
 							if (jsArray[rowIndex - 1][colIndex] === 0) {
-								//set the box above it to the value of the current box
+								//set the box in row 2 to the current box
 								jsArray[rowIndex - 1][colIndex] = jsArray[rowIndex][colIndex];
-								//and make the current box empty
+								//make the current box empty
 								jsArray[rowIndex][colIndex] = 0;
-							//if the box directly above is NOT empty and is equal to the box in row 1
+								//check the box above
+								rowIndex--;
+							// if the box on row 2 is not empty and is equal to the current box
 							} else if (jsArray[rowIndex - 1][colIndex] === jsArray[rowIndex][colIndex]) {
-								//add the two together and store them in the box above
+								//add the two together and store the value in the box on row 2
 								jsArray[rowIndex - 1][colIndex] += jsArray[rowIndex][colIndex];
-								//and make the current box empty
+								//make the current box empty
 								jsArray[rowIndex][colIndex] = 0;
+								//check the box above
+								rowIndex--;
 							// if the box above is not empty and is not equal to the current box
 							} else {
-								//stop the loop cause you hit the top!
+								//you hit the top, move on
 								hitTop = true;
 							}
+						} else {
+							//if the box is empty, move on
+							hitTop = true;
 						}
 					//});
-					break;	
-					//break the loop if the box is on row 0
-					case 0: 
-						hitTop = true;
-						console.log('test 0');
-					break;	
+					//move the box up if it is on row 2
+					break;
+
 				//end the switch
 				}
-				//look at the box directly above
-				rowIndex--;
 			//continue the switch until you hit the top!
 			} while (!hitTop);
 		//end the for each box
@@ -202,7 +225,122 @@ var moveUp = function () {
 	//end the for each row
 	});
 	loadChar();
+};
 
+var moveDown = function () {
+	var hitBottom;
+	var rowIndex;
+	//jsArray.forEach(function(row, originalRowIndex) {
+		//row.forEach(function(box, colIndex) {
+	for (var originalRowIndex = 2; originalRowIndex >=0; originalRowIndex--) {
+		for (var colIndex = 3; colIndex >=0; colIndex--) {
+			hitBottom = false;
+			rowIndex = originalRowIndex;
+			console.log('test for each. row: ' + rowIndex + ' col: ' + colIndex);
+			do {
+				switch (rowIndex) {
+					//move the box down if it is on row 0
+					case 0:	
+						console.log('test 0');
+						//if the box is not empty
+						if (jsArray[rowIndex][colIndex] !== 0) {
+							//if the box below it on row 1 is empty
+							if (jsArray[rowIndex + 1][colIndex] === 0) {
+								//set the box in row 1 to the current box
+								jsArray[rowIndex + 1][colIndex] = jsArray[rowIndex][colIndex];
+								//make the current box empty
+								jsArray[rowIndex][colIndex] = 0;
+								//check the box below
+								rowIndex++;
+							// if the box on row 1 is not empty and is equal to the current box
+							} else if (jsArray[rowIndex + 1][colIndex] === jsArray[rowIndex][colIndex]) {
+								//add the two together and store the value in the box on row 1
+								jsArray[rowIndex + 1][colIndex] += jsArray[rowIndex][colIndex];
+								//make the current box empty
+								jsArray[rowIndex][colIndex] = 0;
+								//check the box below
+								rowIndex++;
+							// if the box below is not empty and is not equal to the current box
+							} else {
+								//you hit the bottom, move on
+								hitBottom = true;
+							}
+						} else {
+							//if the box is empty, move on
+							hitBottom = true;
+						}
+					break;
+					//move the box down if it is on row 1
+					case 1:	
+						console.log('test 1');
+						//if the box on row 1 is not empty
+						if (jsArray[rowIndex][colIndex] !== 0) {
+							//if the box directly below it on row 2 IS empty
+							if (jsArray[rowIndex + 1][colIndex] === 0) {
+								//set the box below it to the value of the current box
+								jsArray[rowIndex + 1][colIndex] = jsArray[rowIndex][colIndex];
+								//and make the current box empty
+								jsArray[rowIndex][colIndex] = 0;
+								//check the box below
+								rowIndex++;
+							//if the box directly below is NOT empty and is equal to the box in row 1
+							} else if (jsArray[rowIndex + 1][colIndex] === jsArray[rowIndex][colIndex]) {
+								//add the two together and store them in the box below
+								jsArray[rowIndex + 1][colIndex] += jsArray[rowIndex][colIndex];
+								//and make the current box empty
+								jsArray[rowIndex][colIndex] = 0;
+								//check the box below
+								rowIndex++;
+							// if the box below is not empty and is not equal to the current box
+							} else {
+								//you hit the bottom, move on
+								hitBottom = true;
+							}
+						} else {
+							//if the box is empty, move on
+							hitBottom = true;
+						}
+					break;	
+					//move the box down if it is on row 2
+					case 2: 
+						console.log('test 2');
+						//if the box on row 2 is not empty
+						if (jsArray[rowIndex][colIndex] !== 0) {
+							//if the box below it in row 3 IS empty
+							if (jsArray[rowIndex + 1][colIndex] === 0) {
+								//set the box in row 3 to the current box
+								jsArray[rowIndex + 1][colIndex] = jsArray[rowIndex][colIndex];
+								//make the current box empty
+								jsArray[rowIndex][colIndex] = 0;
+								//you hit the bottom, move on!
+								hitBottom = true;
+							//if the box in row 3 is NOT empty and is equal to the value of the current box
+							} else if (jsArray[rowIndex + 1][colIndex] === jsArray[rowIndex][colIndex]) {
+								//add the two boxes together and store the value in the box in row 3
+								jsArray[rowIndex + 1][colIndex] += jsArray[rowIndex][colIndex];
+								//make the current box empty
+								jsArray[rowIndex][colIndex] = 0;
+								//you hit the bottom, move on!
+								hitBottom = true;
+							// if the box below is not empty and is not equal to the current box
+							} else {
+								//you hit the top, move on
+								hitBottom = true;
+							}
+						} else {
+							//if the box is empty, move on
+							hitBottom = true;
+						}
+					break;
+				//end the switch
+				}
+			//continue the switch until you hit the bottom!
+			} while (!hitBottom);
+		//end the for each box loop
+		}
+	//end the for each row loop
+	}
+	loadChar();
 };
 /*
 // move characters on up
