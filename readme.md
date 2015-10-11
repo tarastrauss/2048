@@ -4,7 +4,7 @@ __*Game clone designed by Tara Strauss*__
 
 ###User Stories
 
-**Role**: anyone ages 8 to ~ , mostly people who like brain teasers and logic puzzles or are nerdy about DC superheroes
+**Role**: ages 6 to ~ , mostly people who like brain teasers or logic puzzles and are nerdy about DC superheroes
 
 **Goal**: to combine blocks of the same (superhero) type to the 11th degree. Usually this means until you reach 2048, but in this version it will mean until you create the justice league!
 
@@ -14,7 +14,7 @@ __*Game clone designed by Tara Strauss*__
 
 
 
--> ![alt text](http://i.imgur.com/XUYYClN.jpg?1 =250px) <-
+-> ![alt text](http://i.imgur.com/XUYYClN.jpg?1 =300px) <-
 
 -> *(First wireframe, hand-drawn)* <-
 
@@ -67,7 +67,7 @@ __*Game clone designed by Tara Strauss*__
 
 - As a player, I have to memorize where all the boxes are because the boxes on the board flash off after a new box appears. This will make the game more challenging!
 
--> ![alt text](http://i.imgur.com/GNn8ABi.jpg?3 =250px) <-
+-> ![alt text](http://i.imgur.com/GNn8ABi.jpg?3 =400px) <-
 
 -> *(seoncd wireframe, white board drawing)* <-
 
