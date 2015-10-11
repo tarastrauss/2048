@@ -1,6 +1,13 @@
 #title {
 	text-align: center;
 	font-family: arial;
+	margin: auto 0;
+	line-height: 100px;
+}
+
+#full-title {
+	max-width: 350px;
+	margin: 0 auto;
 }
 
 #instructions {
@@ -8,6 +15,7 @@
 	max-width: 600px;
 	margin: 0 auto;
 	font-family: arial;
+	margin-top: 20px;
 }
 
 .box {
@@ -15,8 +23,10 @@
 	width: 90px;
 	height: 90px;
 	box-shadow: 3px 3px 3px grey;
-	background-color: lightgrey;
+	background-color: rgba(150,150,150,.4);
 	border-radius: 2px;
+
+
 }
 
 #board {
@@ -29,4 +39,18 @@
 img {
 	width: 90px;
 	height: 90px;
+}
+
+body {
+	background-color: rgba(40,40,40,1);
+	color: grey;
+
+}
+
+#crisis {
+	border: 2px solid blue;
+	position: inline-block;
+	width: 280px;
+	margin: 0 auto;
+
 }
