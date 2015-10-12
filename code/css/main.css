@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Clear Sans";
-    src: url("ClearSans-Bold-webfont.eot");
+    src: url("/css/ClearSans-Bold-webfont.eot");
     font-weight: normal;
     font-style: normal;
 }
@@ -10,16 +10,24 @@
 	display: inline-block;
 	text-align: center;
 	font-family: arial;
-	border: 2px solid green;
 	width: 150px;
-	line-height: 50px;
-	margin-top: -100px;
+	margin-left: 10px;
+	font-size: 64px;
+	margin-top: -20px;
+	color: DodgerBlue;
+	font-weight: bold;
+}
+
+#crisis {
+	display: inline-block;
+	width: 250px;
+	margin: 20px 0 0 50px;
+	border-radius: 10px;
 }
 
 #full-title {
 	max-width: 500px;
 	margin: 0 auto;
-	border: 2px solid blue;
 	height: 150px;
 }
 
@@ -28,34 +36,34 @@
 	max-width: 600px;
 	margin: 0 auto;
 	font-family: arial;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	font-size: 16px;
 }
 
 .box {
 	display: inline-block;
 	width: 90px;
 	height: 90px;
-	box-shadow: 3px 3px 3px grey;
 	background-color: rgba(150,150,150,.4);
-	border-radius: 2px;
+
+}
+
+.box img {
 }
 
 #board {
 	max-width: 390px;
 	margin-top: 30px;
 	float: left;
+	margin-left: 70px;
 	display: inline-block;
-}
-
-img {
-	width: 90px;
-	height: 90px;
-
+	border-radius: 3px;
+	padding-left: 4px;
+	padding-top: 4px;
+	border: 6px solid DodgerBlue;
 }
 
 .members{
-	margin: 3px 3px 3px 3px;
+	margin: 1px 3px 1px 3px;
 }
 
 body {
@@ -67,25 +75,19 @@ body {
 #main-board{
 	margin: 0 auto;
 	max-width: 1000px;
-	border: 2px solid green;
-	height: 450px;
+	height: 425px;
+}
+
+#display-moves {
+	margin-bottom: 6px;
 }
 
 #scoreboard {
-	border: 2px solid red;
 	margin-left: 100px;
-	margin-top: 50px;
+	margin-top: 30px;
 	display: inline-block;
 	font-family: arial;
 	font-size: 20px;
-	width: 450px;
+	width: 400px;
 	height: 390px;
-}
-
-#crisis {
-	display: inline-block;
-	width: 250px;
-	margin: 50px 0 0 50px;
-	border-radius: 6px;
-	border: 2px solid red;
 }
