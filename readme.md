@@ -2,6 +2,8 @@
 
 __*Game clone designed by Tara Strauss*__
 
+![](https://i.imgur.com/KpDmvZv.png)
+
 ###User Stories
 
 **Role**: ages 6 to ~ , mostly people who like brain teasers or logic puzzles and are nerdy about DC superheroes
