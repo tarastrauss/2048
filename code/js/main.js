@@ -1,5 +1,6 @@
 console.log('test!');
 var winner = false;
+var highestChar = 2;
 
 /*
 var boxArray = [
@@ -15,6 +16,7 @@ var jsArray = [
 	[0,0,0,0],
 	[0,0,0,0]
 ]
+var $heroLevel = $('#hero-level');
 
 var $boxArray = [
 	[$('#r0c0'), $('#r0c1'), $('#r0c2'), $('#r0c3')],
@@ -98,6 +100,7 @@ var keyDown = function () {
 		}
 		//key.preventDefault();
 		checkForWinner();
+		checkForHighestChar();
 	});
 };
 
@@ -338,6 +341,37 @@ var checkForWinner = function () {
 
 	});
 }
+
+var checkForHighestChar = function () {
+	jsArray.forEach(function (row, rowIndex) {
+		row.forEach(function (col, colIndex) {
+			if (jsArray[rowIndex][colIndex] > highestChar) {
+				highestChar = jsArray[rowIndex][colIndex]
+				console.log("The highest character is " + highestChar);
+				switch (highestChar) {
+					case 4: $heroLevel.append($('<img class = "members" src = "/sprites/the_flash_final.png" />'));
+					break;
+					case 8: $heroLevel.append($('<img class = "members" src = "/sprites/aquaman_final.png" />'));
+					break;
+					case 16: $heroLevel.append($('<img class = "members" src = /sprites/black_canary_final.png />'));
+					break;
+					case 32: $heroLevel.append($('<img class = "members" src = /sprites/green_lantern_final.png />'));
+					break;
+					case 64: $heroLevel.append($('<img class = "members" src = /sprites/zatanna_final.png />'));
+					break;
+					case 128: $heroLevel.append($('<img class = "members" src = /sprites/martian_manhunter_final.png />'));
+					break;
+					case 256: $heroLevel.append($('<img class = "members" src = /sprites/green_arrow_final.png />'));
+					break;
+					case 512: $heroLevel.append($('<img class = "members" src = /sprites/cyborg_final.png />'));
+					break;
+					case 1024: $heroLevel.append($('<img class = "members" src = /sprites/batman_final.png />'));
+				}
+			}
+		});
+	});
+}
+
 
 loadChar();
 loadChar();
