@@ -2,7 +2,7 @@ console.log('test!');
 var winner = false;
 var highestChar = 2;
 var moves = 0;
-var $displayMoves = $('#display-moves');
+
 /*
 var boxArray = [
 	['r0c0', 'r0c1', 'r0c2', 'r0c3'],
@@ -17,14 +17,39 @@ var jsArray = [
 	[0,0,0,0],
 	[0,0,0,0]
 ]
-var $heroLevel = $('#hero-level');
 
-var $boxArray = [
-	[$('#r0c0'), $('#r0c1'), $('#r0c2'), $('#r0c3')],
-	[$('#r1c0'), $('#r1c1'), $('#r1c2'), $('#r1c3')],
-	[$('#r2c0'), $('#r2c1'), $('#r2c2'), $('#r2c3')],
-	[$('#r3c0'), $('#r3c1'), $('#r3c2'), $('#r3c3')]
-];
+		var $displayMoves = $('#display-moves');
+		var $heroLevel = $('#hero-level');
+
+		var $boxArray = [
+			[$('#r0c0'), $('#r0c1'), $('#r0c2'), $('#r0c3')],
+			[$('#r1c0'), $('#r1c1'), $('#r1c2'), $('#r1c3')],
+			[$('#r2c0'), $('#r2c1'), $('#r2c2'), $('#r2c3')],
+			[$('#r3c0'), $('#r3c1'), $('#r3c2'), $('#r3c3')]
+		];
+
+/* TODO!!!!! 
+
+on load function - $(document).ready function()
+refactoring
+fix logic
+pop ups instead of alerts
+swipe
+animation
+
+
+*/
+
+var onLoad = function () {
+	$(document).ready (function () {
+		console.log('hi!');
+
+
+	});
+};
+
+onLoad();
+
 
 var render = function (){
 	jsArray.forEach (function (row, rowIndex) {
@@ -32,32 +57,103 @@ var render = function (){
 			switch (jsArray[rowIndex][colIndex]){
 				case 0: $boxArray[rowIndex][colIndex].children().attr('src','')
 				break;
-				case 1: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/superman.png')
+				case 1: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/superman_final.png')
 				break;
-				case 2: $boxArray[rowIndex][colIndex].children().attr('src','/sprites/wonder_woman.png')
+				case 2: $boxArray[rowIndex][colIndex].children().attr('src','/sprites/wonder_woman_final.png')
 				break;
 				case 4: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/the_flash_final.png')
 				break;
-				case 8: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/aquaman_final.png')
+				case 8: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/green_lantern_final.png')
 				break;
 				case 16: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/black_canary_final.png')
 				break;
-				case 32: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/green_lantern_final.png')
+				case 32: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/martian_manhunter_final.png')
 				break;
 				case 64: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/zatanna_final.png')
 				break;
-				case 128: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/martian_manhunter_final.png')
+				case 128: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/cyborg_final.png')
 				break;
-				case 256: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/green_arrow_final.png')
+				case 256: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/aquaman_final.png')
 				break;
-				case 512: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/cyborg_final.png')
+				case 512: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/green_arrow_final.png')
 				break;
 				case 1024: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/batman_final.png')
 			}
-			
+				
 		});
 	});
 }
+
+//takes input from user on key down
+var keyDown = function () {
+	$(document).keydown(function (key){
+		switch(key.which){
+			case 37: 
+				moveLeft();
+				moves++;
+			break;
+
+			case 38: 
+				moveUp();
+				moves++;
+			break;
+
+			case 39: 
+				moveRight();
+				moves++;
+			break;
+
+			case 40: 
+				moveDown();
+				moves++;
+			break;
+		}
+		//key.preventDefault();
+		checkForWinner();
+		checkForHighestChar();
+		displayMoveFunction();
+	});
+};
+
+var checkForHighestChar = function () {
+	jsArray.forEach(function (row, rowIndex) {
+		row.forEach(function (col, colIndex) {
+			if (jsArray[rowIndex][colIndex] > highestChar) {
+				highestChar = jsArray[rowIndex][colIndex]
+				console.log("The highest character is " + highestChar);
+				switch (highestChar) {
+					case 4: $heroLevel.append($('<img class = "members" src = "/sprites/the_flash_final.png" />'));
+					alert('Wonder Woman has recruited The Flash to join the Justice League!');
+					break;
+					case 8: $heroLevel.append($('<img class = "members" src = "/sprites/green_lantern_final.png" />'));
+					alert('The Flash has recruited Green Lantern to join the Justice League!');
+					break;
+					case 16: $heroLevel.append($('<img class = "members" src = /sprites/black_canary_final.png />'));
+					alert('Green Lantern has recruited Black Canary to join the Justice League!');
+					break;
+					case 32: $heroLevel.append($('<img class = "members" src = /sprites/martian_manhunter_final.png />'));
+					alert('Black Canary has recruited Martian Manhunter to join the Justice League!');
+					break;
+					case 64: $heroLevel.append($('<img class="members" src="/sprites/zatanna_final.png" />'));
+					alert('Martian Manhunter has recruited Zatanna to join the Justice League!');
+					break;
+					case 128: $heroLevel.append($('<img class = "members" src = /sprites/cyborg_final.png />'));
+					alert('Zatanna has recruited Cyborg to join the Justice League!');
+					break;
+					case 256: $heroLevel.append($('<img class = "members" src = /sprites/aquaman_final.png />'));
+					alert('Cyborg has recruited Aquaman to join the Justice League!');
+					break;
+					case 512: $heroLevel.append($('<img class = "members" src = /sprites/green_arrow_final.png />'));
+					alert('Aquaman has recruited Green Arrow to join the Justice League!');
+					break;
+					case 1024: $heroLevel.append($('<img class = "members" src = /sprites/batman_final.png />'));
+					alert('Green Arrow managed to convince loner Bruce Wayne to join the Justice League! Congratulations!! The entire Justice League is formed!');
+				} 
+			}
+		});
+	});
+}
+
 
 // load superman or wonder woman in random unfilled spot
 var loadChar = function () {
@@ -80,33 +176,6 @@ var loadChar = function () {
 	} while (!filled);
 	render();
 };
-
-
-
-//takes input from user on key down
-var keyDown = function () {
-	$(document).keydown(function (key){
-		switch(key.which){
-			case 37: moveLeft();
-			break;
-
-			case 38: moveUp();
-			break;
-
-			case 39: moveRight();
-			break;
-
-			case 40: moveDown();
-			break;
-		}
-		//key.preventDefault();
-		checkForWinner();
-		checkForHighestChar();
-		moves++;
-		displayMoveFunction();
-	});
-};
-
 
 var moveUp = function () {
 	var combined;
@@ -365,45 +434,6 @@ var checkForGameOver = function () {
 		alert("You're too late. Lex Luthor has attacked the Justice League before they could unite their alternate realities. Please try again.")
 	}
 
-}
-
-var checkForHighestChar = function () {
-	jsArray.forEach(function (row, rowIndex) {
-		row.forEach(function (col, colIndex) {
-			if (jsArray[rowIndex][colIndex] > highestChar) {
-				highestChar = jsArray[rowIndex][colIndex]
-				console.log("The highest character is " + highestChar);
-				switch (highestChar) {
-					case 4: $heroLevel.append($('<img class = "members" src = "/sprites/the_flash_final.png" />'));
-					alert('Wonder Woman has recruited The Flash to join the Justice League!');
-					break;
-					case 8: $heroLevel.append($('<img class = "members" src = "/sprites/aquaman_final.png" />'));
-					alert('The Flash has recruited Aquaman to join the Justice League!');
-					break;
-					case 16: $heroLevel.append($('<img class = "members" src = /sprites/black_canary_final.png />'));
-					alert('Aquaman has recruited Black Canary to join the Justice League!');
-					break;
-					case 32: $heroLevel.append($('<img class = "members" src = /sprites/green_lantern_final.png />'));
-					alert('Black Canary has recruited Green Lantern to join the Justice League!');
-					break;
-					case 64: $heroLevel.append($('<img class = "members" src = /sprites/zatanna_final.png />'));
-					alert('Green Lantern has recruited Zatanna to join the Justice League!');
-					break;
-					case 128: $heroLevel.append($('<img class = "members" src = /sprites/martian_manhunter_final.png />'));
-					alert('Zatanna has recruited Martian Manhunter to join the Justice League!');
-					break;
-					case 256: $heroLevel.append($('<img class = "members" src = /sprites/green_arrow_final.png />'));
-					alert('Martian Manhunter has recruited Green Arrow to join the Justice League!');
-					break;
-					case 512: $heroLevel.append($('<img class = "members" src = /sprites/cyborg_final.png />'));
-					alert('Green Arrow has recruited Cyborg to join the Justice League!');
-					break;
-					case 1024: $heroLevel.append($('<img class = "members" src = /sprites/batman_final.png />'));
-					alert('Cyborg managed to convince loner Bruce Wayne to join the Justice League! Congratulations!! The entire Justice League is formed!');
-				}
-			}
-		});
-	});
 }
 
 var displayMoveFunction = function () {
