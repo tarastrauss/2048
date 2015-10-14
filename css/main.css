@@ -45,10 +45,13 @@
 	width: 90px;
 	height: 90px;
 	background-color: rgba(150,150,150,.4);
-	margin: 3px;
+	margin: 4px;
+	font-size: 0;
 }
 
-
+.boxImg {
+	display: block;
+}
 
 #board {
 	max-width: 400px;
@@ -60,6 +63,7 @@
 	padding: 8px 6px 6px 8px;
 	background-color: #776e65;
 	border-radius: 6px;
+	font-size: 0;
 }
 
 .members{
@@ -76,7 +80,7 @@ body {
 #main-board{
 	margin: 0 auto;
 	max-width: 1000px;
-	height: 425px;
+	height: 445px;
 }
 
 #display-moves {

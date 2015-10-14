@@ -2,6 +2,7 @@ console.log('test!');
 var winner = false;
 var highestChar = 2;
 var moves = 0;
+var cannotMove = false;
 
 /*
 var boxArray = [
@@ -43,9 +44,8 @@ $(document).ready (function () {
 	loadChar();
 	loadChar();
 	render();
-	keyDown();
+	keyUp();
 	checkForHighestChar();
-
 	
 });
 
@@ -83,7 +83,7 @@ var render = function (){
 }
 
 //takes input from user on key down
-var keyDown = function () {
+var keyUp = function () {
 	$(document).keyup(function (key){
 		switch(key.which){
 			case 37: 
@@ -106,8 +106,10 @@ var keyDown = function () {
 		checkForWinner();
 		checkForHighestChar();
 		displayMoveFunction();
+		logBoard();
 	});
 };
+
 
 var checkForHighestChar = function () {
 	jsArray.forEach(function (row, rowIndex) {
@@ -128,7 +130,7 @@ var checkForHighestChar = function () {
 					case 32: $heroLevel.append($('<img src = /sprites/martian_manhunter_final.png />').addClass("members"));
 					alert('Black Canary has recruited Martian Manhunter to join the Justice League!');
 					break;
-					case 64: $heroLevel.append($('<imsrc="/sprites/zatanna_final.png" />').addClass("members"));
+					case 64: $heroLevel.append($('<img src="/sprites/zatanna_final.png" />').addClass("members"));
 					alert('Martian Manhunter has recruited Zatanna to join the Justice League!');
 					break;
 					case 128: $heroLevel.append($('<img src = /sprites/cyborg_final.png />').addClass("members"));
@@ -172,8 +174,8 @@ var loadChar = function () {
 
 var logBoard = function () {
 	for (var i = 0; i < 4; i++) {
-			console.log(jsArray[i][0] + " " + jsArray[i][1] + " " + jsArray[i][2] + " " + jsArray[i][1]);
-			console.log("/n");
+			console.log(jsArray[i][0] + " " + jsArray[i][1] + " " + jsArray[i][2] + " " + jsArray[i][3]);
+			console.log("\n");
 
 	}	
 }
@@ -201,10 +203,13 @@ var isNotLastLine = function (index) {
 var moveUp = function () {
 	var combined;
 	var wasAMove = false;
+	var colArray;
 	//loop through the game by column
 	for (var colIndex = 0; colIndex <= 3; colIndex++) {
+		colArray = [false, false, false, false];
 		//loop through the game by row, starting at the second row
 		for (var rowIndex = 1; rowIndex <= 3; rowIndex++) {
+
 			//set combined variable to false so a box only combines once
 			combined = false;
 				do {
@@ -220,17 +225,21 @@ var moveUp = function () {
 							rowIndex--;
 							//we made a move!
 							wasAMove = true;
-						//if the box directly above is NOT empty and is equal to the box
-						} else if (jsArray[rowIndex - 1][colIndex] === jsArray[rowIndex][colIndex]) {
+						//if the box directly above is NOT empty and is equal to the box AND the box has not been combined
+						} else if (jsArray[rowIndex - 1][colIndex] === jsArray[rowIndex][colIndex] && colArray[rowIndex - 1] === false) {
 							//add the two together and store them in the box above
 							doubleBox(rowIndex - 1, colIndex);
 							//and make the current box empty
 							makeBoxEmpty(rowIndex,colIndex);
 							//the box has been combined, so move on
-							combined = true;								
+							combined = true;	
+							//tell the colArray that a box has been combined
+							colArray[rowIndex - 1]	= true;						
 							//we made a move!
 							wasAMove = true;
 						//if the box directly above is NOT empty and is NOT equal to the box 
+						} else if (jsArray[rowIndex - 1][colIndex] === jsArray[rowIndex][colIndex] && colArray[rowIndex - 1] === true) {
+							combined = true;
 						} else if (jsArray[rowIndex - 1][colIndex] !== jsArray[rowIndex][colIndex]) {
 							//move on, keep the box where it is
 							combined = true;
@@ -250,6 +259,7 @@ var moveUp = function () {
 		loadChar();
 		moves++;
 	} else {
+		cannotMove = true;
 		checkForGameOver();
 	}
 };
@@ -257,8 +267,10 @@ var moveUp = function () {
 var moveDown = function () {
 	var combined;
 	var wasAMove = false;
+	var colArray;
 	//loop through the game by column
 	for (var colIndex = 0; colIndex <= 3; colIndex++) {
+		colArray = [false, false, false, false];
 		//loop through the game by row, starting at the third row
 		for (var rowIndex = 2; rowIndex >=0; rowIndex--) {
 			//set combined variable to false so a box only combines once
@@ -277,15 +289,19 @@ var moveDown = function () {
 							//we made a move!
 							wasAMove = true;
 						//if the box directly below is NOT empty and is equal to the box
-						} else if (jsArray[rowIndex + 1][colIndex] === jsArray[rowIndex][colIndex]) {
+						} else if (jsArray[rowIndex + 1][colIndex] === jsArray[rowIndex][colIndex] && colArray[rowIndex + 1] === false) {
 							//add the two together and store them in the box below
 							doubleBox(rowIndex + 1, colIndex);
 							//and make the current box empty
 							makeBoxEmpty(rowIndex,colIndex);
+							//tell the colArray that a box has been combined
+							colArray[rowIndex - 1]	= true;	
 							//the box has been combined, so move on
 							combined = true;
 							//we made a move!
 							wasAMove = true;
+						} else if (jsArray[rowIndex + 1][colIndex] === jsArray[rowIndex][colIndex] && colArray[rowIndex + 1] === true) {
+							combined = true;
 						//if the box directly below is NOT empty and is NOT equal to the box 
 						} else if (jsArray[rowIndex + 1][colIndex] !== jsArray[rowIndex][colIndex]) {
 							//move on, keep the box where it is
@@ -306,23 +322,25 @@ var moveDown = function () {
 		loadChar();
 		moves++;
 	} else {
+		cannotMove = true;
 		checkForGameOver();
 	}
 };
 
 
 var moveLeft = function () {
+	var combined;
 	var wasAMove = false;
-	var furthestLeft;
+	var rowArray;
 	//loop through the game by row
 	for (var rowIndex = 0; rowIndex <=3; rowIndex++) {
+		rowArray = [false, false, false, false];
 		//loop through the game by column, starting at the second column
 		for (var colIndex = 1; colIndex <= 3; colIndex++) {
 			//set combined variable to false so a box only combines once
-			furthestLeft = false;
-			//if the box is not empty move it as far left as possible
-			if (!boxIsEmpty(rowIndex, colIndex)) {
-				do {
+			combined = false;
+			do {
+				if (isNotFirstLine(colIndex) && !boxIsEmpty(rowIndex, colIndex)) {
 					if (boxIsEmpty(rowIndex, colIndex - 1)) {
 						//set the box to the left to the value of the current box
 						jsArray[rowIndex][colIndex - 1] = jsArray[rowIndex][colIndex];
@@ -332,29 +350,31 @@ var moveLeft = function () {
 						colIndex--;									
 						//we made a move!
 						wasAMove = true;
-					} else {
-						furthestLeft = true;
-					}
-				//keep looping until the box is furthestLeft
-				} while (!furthestLeft);	
-			}
-			//if the box directly to the left is NOT empty and is equal to the box
-			if (jsArray[rowIndex][colIndex - 1] === jsArray[rowIndex][colIndex]) {
-					//add the two together and store them in the box to the left
-					doubleBox(rowIndex, colIndex - 1);
-					//and make the current box empty
-					makeBoxEmpty(rowIndex,colIndex);
-					//the box has been combined, so move on
+					//if the box directly to the left is NOT empty and is equal to the box AND it hasn't been combind before
+					} else if (jsArray[rowIndex][colIndex - 1] === jsArray[rowIndex][colIndex] && rowArray[colIndex - 1] === false) {
+						//add the two together and store them in the box to the left
+						doubleBox(rowIndex, colIndex - 1);
+						//and make the current box empty
+						makeBoxEmpty(rowIndex,colIndex);
+						//the box has been combined, so move on
+						combined = true;
+	
+						rowArray[colIndex - 1] = true;								
+						//we made a move!
+						wasAMove = true;
+					} else if (jsArray[rowIndex][colIndex - 1] === jsArray[rowIndex][colIndex] && rowArray[colIndex - 1] === true) {
+						combined = true;
+					//if the box directly to the left is NOT empty and is NOT equal to the box 
+					} else if (jsArray[rowIndex][colIndex - 1] !== jsArray[rowIndex][colIndex]) {
+							//move on, keep the box where it is
+						combined = true;
+					} 
+				} else {
+					//if the box is empty, move on
 					combined = true;
-					console.log ("combined boxes to left and moved on");									
-					//we made a move!
-					wasAMove = true;
-			//if the box directly to the left is NOT empty and is NOT equal to the box 
-			} else if (jsArray[rowIndex][colIndex - 1] !== jsArray[rowIndex][colIndex]) {
-					//move on, keep the box where it is
-					console.log("can't combine boxes but moved on")
-			}
-
+				}
+				//keep looping until the box is furthestLeft
+			} while (!combined);	
 
 		//end the for loop through column
 		}
@@ -372,10 +392,11 @@ var moveLeft = function () {
 var moveRight = function () {
 	var combined;
 	var wasAMove = false;
+	var rowArray;
 	//loop through the game by row
 	for (var rowIndex = 0; rowIndex <=3; rowIndex++) {
+		rowArray = [false, false, false, false];
 		//loop through the game by column, starting at the third column
-
 		for (var colIndex = 2; colIndex >= 0; colIndex--) {
 			//set combined variable to false so a box only combines once
 			combined = false;
@@ -393,15 +414,18 @@ var moveRight = function () {
 							//we made a move!
 							wasAMove = true;
 						//if the box directly to the right is NOT empty and is equal to the box
-						} else if (jsArray[rowIndex][colIndex + 1] === jsArray[rowIndex][colIndex]) {
+						} else if (jsArray[rowIndex][colIndex + 1] === jsArray[rowIndex][colIndex] && rowArray[colIndex + 1] === false) {
 							//add the two together and store them in the box to the right
 							doubleBox(rowIndex, colIndex + 1);
 							//and make the current box empty
 							makeBoxEmpty(rowIndex,colIndex);
 							//the box has been combined, so move on
-							combined = true;								
+							combined = true;
+							rowArray[colIndex + 1] = true;									
 							//we made a move!
 							wasAMove = true;
+						} else if (jsArray[rowIndex][colIndex + 1] === jsArray[rowIndex][colIndex] && rowArray[colIndex + 1] === true) {
+							combined = true;
 						//if the box directly to the right is NOT empty and is NOT equal to the box 
 						} else if (jsArray[rowIndex][colIndex + 1] !== jsArray[rowIndex][colIndex]) {
 							//move on, keep the box where it is
@@ -422,6 +446,7 @@ var moveRight = function () {
 		loadChar();
 		moves++;
 	} else {
+		cannotMove = true;
 		checkForGameOver();
 	}
 };
@@ -440,17 +465,36 @@ var checkForWinner = function () {
 }
 
 var checkForGameOver = function () {
-	var gameOver = true;
+	var stillEmptyBoxes = false;
+	var stillMoves = false;
 	jsArray.forEach(function (row, rowIndex) {
 		row.forEach(function (col, colIndex) {
 			if (jsArray[rowIndex][colIndex] === 0) {
-				gameOver = false
+				stillEmptyBoxes = true;
 			}
-
+			if (isNotLastLine(rowIndex)) {
+				if (jsArray[rowIndex][colIndex] === jsArray[rowIndex + 1][colIndex]) {
+					stillMoves = true;
+				}
+			}
+			if (isNotLastLine(colIndex)) {
+				if (jsArray[rowIndex][colIndex] === jsArray[rowIndex][colIndex + 1]) {
+					stillMoves = true;
+				}
+			}
+			if (isNotFirstLine(rowIndex)) {
+				if (jsArray[rowIndex][colIndex] === jsArray[rowIndex - 1][colIndex]){
+					stillMoves = true;
+				}
+			}
+			if (isNotFirstLine(colIndex)) {
+				if (jsArray[rowIndex][colIndex] === jsArray[rowIndex][colIndex - 1]) {
+					stillMoves = true;
+				}
+			}
 		});
-
 	});
-	if (gameOver) {
+	if (!stillEmptyBoxes && !stillMoves) {
 		alert("You're too late. Lex Luthor has attacked the Justice League before they could unite their alternate realities. Please try again.")
 	}
 
