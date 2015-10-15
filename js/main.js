@@ -53,6 +53,7 @@ animation
 
 */
 
+//load on document ready!
 $(document).ready (function () {
 	console.log('ready!');
 	loadChar();
@@ -63,6 +64,7 @@ $(document).ready (function () {
 	reset();
 });
 
+//reset the game!
 var reset = function () {
 	$reset.click(function (){
 		console.log("reset was clicked!");
@@ -87,6 +89,7 @@ var reset = function () {
 	});
 }
 
+//render the game reset
 var renderReset = function () {
 	jsArray.forEach (function (row, rowIndex) {
 		row.forEach (function (col, colIndex) {
@@ -95,55 +98,64 @@ var renderReset = function () {
 	});
 }
 
-var render = function (){
+//render after each turn
+var render = function (classType){
 	jsArray.forEach (function (row, rowIndex) {
 		row.forEach (function (col, colIndex) {
 			if (jsArray[rowIndex][colIndex] !== oldArray[rowIndex][colIndex]){
-				switch (jsArray[rowIndex][colIndex]){
-					case 0: 
-						$boxArray[rowIndex][colIndex].children().addClass('animated zoomOut');//.addClass('animated').addClass('zoomOut');
+				if (jsArray[rowIndex][colIndex] === 0) {
+					$boxArray[rowIndex][colIndex].children().addClass('animated ').addClass(classType);//.addClass('animated').addClass('zoomOut');
 						window.setTimeout(function () {
-							$boxArray[rowIndex][colIndex].children().attr('src','');
-						}, 500);
-					break;
-					case 1: 
-						$boxArray[rowIndex][colIndex].children().attr('src', supermanPath).addClass('animated').addClass('zoomIn');
-					break;Path
-					case 2: 
-						$boxArray[rowIndex][colIndex].children().attr('src', wonderWomanPath).addClass('animated').addClass('zoomIn');
-					break;
-					case 4: 
-						$boxArray[rowIndex][colIndex].children().attr('src', theFlashPath).addClass('animated').addClass('zoomIn');
-					break;
-					case 8: 
-						$boxArray[rowIndex][colIndex].children().attr('src', greenLanternPath).addClass('animated').addClass('zoomIn');
-					break;
-					case 16: 
-						$boxArray[rowIndex][colIndex].children().attr('src', blackCanaryPath).addClass('animated').addClass('zoomIn');
-					break;
-					case 32: 
-						$boxArray[rowIndex][colIndex].children().attr('src', martianManhunterPath).addClass('animated').addClass('zoomIn');
-					break;
-					case 64: 
-						$boxArray[rowIndex][colIndex].children().attr('src', zatanaPath).addClass('animated').addClass('zoomIn');
-					break;
-					case 128: 
-						$boxArray[rowIndex][colIndex].children().attr('src', cyborgPath).addClass('animated').addClass('zoomIn');
-					break;
-					case 256: 
-						$boxArray[rowIndex][colIndex].children().attr('src', aquamanPath).addClass('animated').addClass('zoomIn');
-					break;
-					case 512: 
-						$boxArray[rowIndex][colIndex].children().attr('src', greenArrowPath).addClass('animated').addClass('zoomIn');
-					break;
-					case 1024: 
-						$boxArray[rowIndex][colIndex].children().attr('src', batmanPath).addClass('animated').addClass('zoomIn');
-					break;
+							$boxArray[rowIndex][colIndex].children().attr('src','').removeClass('animated').removeClass(classType);
+						}, 1200);
 				}
 				window.setTimeout(function () {
-					$boxArray[rowIndex][colIndex].children().removeClass('animated zoomIn zoomOut');
-				}, 500);
-			} 
+					switch (jsArray[rowIndex][colIndex]){
+						/*case 0: 
+							$boxArray[rowIndex][colIndex].children().addClass('animated ').addClass(classType);//.addClass('animated').addClass('zoomOut');
+							window.setTimeout(function () {
+								$boxArray[rowIndex][colIndex].children().attr('src','').removeClass('animated').removeClass(classType);
+							}, 1000); */ 
+						//break;
+						case 1: 
+							$boxArray[rowIndex][colIndex].children().attr('src', supermanPath).addClass('animated').addClass('fadeIn');
+						break;Path
+						case 2: 
+							$boxArray[rowIndex][colIndex].children().attr('src', wonderWomanPath).addClass('animated').addClass('fadeIn');
+						break;
+						case 4: 
+							$boxArray[rowIndex][colIndex].children().attr('src', theFlashPath).addClass('animated').addClass('fadeIn');
+						break;
+						case 8: 
+							$boxArray[rowIndex][colIndex].children().attr('src', greenLanternPath).addClass('animated').addClass('fadeIn');
+						break;
+						case 16: 
+							$boxArray[rowIndex][colIndex].children().attr('src', blackCanaryPath).addClass('animated').addClass('fadeIn');
+						break;
+						case 32: 
+							$boxArray[rowIndex][colIndex].children().attr('src', martianManhunterPath).addClass('animated').addClass('fadeIn');
+						break;
+						case 64: 
+							$boxArray[rowIndex][colIndex].children().attr('src', zatanaPath).addClass('animated').addClass('fadeIn');
+						break;
+						case 128: 
+							$boxArray[rowIndex][colIndex].children().attr('src', cyborgPath).addClass('animated').addClass('fadeIn');
+						break;
+						case 256: 
+							$boxArray[rowIndex][colIndex].children().attr('src', aquamanPath).addClass('animated').addClass('fadeIn');
+						break;
+						case 512: 
+							$boxArray[rowIndex][colIndex].children().attr('src', greenArrowPath).addClass('animated').addClass('fadeIn');
+						break;
+						case 1024: 
+							$boxArray[rowIndex][colIndex].children().attr('src', batmanPath).addClass('animated').addClass('fadeIn');
+						break;
+					}
+					window.setTimeout(function () {
+						$boxArray[rowIndex][colIndex].children().removeClass('fadeIn');
+					}, 500);
+				}, 800);		
+			}
 		});
 	});
 }
@@ -171,7 +183,7 @@ var keyUp = function () {
 			break;
 		}
 		//key.preventDefault();
-	//	window.setTimeout(function () {
+	window.setTimeout(function () {
 		checkForHighestChar();
 		checkForWinner();
 		checkForGameOver();
@@ -179,22 +191,25 @@ var keyUp = function () {
 		logOldBoard();
 		logBoard();
 	
-	//	}, 1000);
+		}, 1000);
 	});
 };
 
+//store the board from the last turn
 var sliceJSArray = function () {
 	for (var i = 0; i < 4; i++){
 		oldArray[i] = jsArray[i].slice(0);
 	}
 }
 
+//clear the highest character on reset
 var clearHighestChar = function () {
 	$heroLevel.empty();
 	$heroLevel.append($('<img>').attr('src', supermanPath).addClass("members"));
 	$heroLevel.append($('<img>').attr('src', wonderWomanPath).addClass("members"));
 }
 
+//tell the user a new character has been reached by a pop up
 var newCharPopUp = function (oldChar, newChar, charPath) {
 	//$newChar.fadeTo(1200, .8).zIndex(20).html(oldChar + " has recruited " + newChar + " to join The Justice League! Press any key to continue.");
 	$mainBoard.prepend($('<div>').fadeIn().attr("id", "newChar").html(oldChar + " has recruited " + newChar + " to join The Justice League! Press return to continue. <br>").css('zIndex', '20'));
@@ -206,6 +221,7 @@ var newCharPopUp = function (oldChar, newChar, charPath) {
 });
 }
 
+//check to see if there is a new highest character
 var checkForHighestChar = function () {
 	jsArray.forEach(function (row, rowIndex) {
 		row.forEach(function (col, colIndex) {
@@ -277,14 +293,23 @@ var loadChar = function () {
 		if (boxIsEmpty(randomRow, randomCol)) {
 			if (randomChar <= .5) {
 				setToSuperman(randomRow,randomCol); 
+				renderNewChar(randomRow, randomCol, supermanPath);
 			} else {
 				setToWonderWoman(randomRow,randomCol); 
+				renderNewChar(randomRow, randomCol, wonderWomanPath);
 			}
 			filled = true;
 		}
 	} while (!filled);
+	
 };
 
+var renderNewChar = function (rowIndex, colIndex, charPath) {
+	$boxArray[rowIndex][colIndex].children().attr('src', charPath).addClass('animated').addClass('tada');
+	window.setTimeout(function () {
+		$boxArray[rowIndex][colIndex].children().removeClass('tada');
+	}, 1200);
+}
 var setToSuperman = function (row, col) {
 	jsArray[row][col] = 1;
 }
@@ -366,9 +391,8 @@ var moveUp = function () {
 	}
 	//check to see if a move was made. If it was, load a new character!
 	if (wasAMove) {
+		render("fadeOutUp");
 		loadChar();
-		render();
-
 		moves++;
 	} else {
 		cannotMove = true;
@@ -433,7 +457,7 @@ var moveDown = function () {
 	if (wasAMove) {
 		loadChar();
 		moves++;
-		render();
+		render("fadeOutDown");
 	} else {
 		cannotMove = true;
 		checkForGameOver();
@@ -498,7 +522,7 @@ var moveLeft = function () {
 	if (wasAMove) {
 		loadChar();
 		moves++;
-		render();
+		render("fadeOutLeft");
 	} else {
 		checkForGameOver();
 	}
@@ -560,7 +584,7 @@ var moveRight = function () {
 	if (wasAMove) {
 		loadChar();
 		moves++;
-		render();
+		render("fadeOutRight");
 	} else {
 		cannotMove = true;
 		checkForGameOver();
