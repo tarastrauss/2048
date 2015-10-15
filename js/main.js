@@ -3,18 +3,25 @@ var winner = false;
 var highestChar = 2;
 var moves = 0;
 var cannotMove = false;
+
+var supermanPath = "/sprites/superman_final.png";
+var wonderWomanPath = "/sprites/wonder_woman_final.png";
+var theFlashPath = "/sprites/the_flash_final.png";
+var greenLanternPath = "/sprites/green_lantern_final.png";
+var blackCanaryPath = "/sprites/black_canary_final.png";
+var martianManhunterPath = "/sprites/martian_manhunter_final.png";
+var zatanaPath = "/sprites/zatanna_final.png";
+var cyborgPath = "/sprites/cyborg_final.png";
+var aquamanPath = "/sprites/aquaman_final.png";
+var greenArrowPath = "/sprites/green_arrow_final.png";
+var batmanPath = "/sprites/batman_final.png";
+
 var $board = $('#board');
 var $newChar = $('#newChar');
-var $body = $('body');
 var $mainBoard = $('#main-board');
-
-/*
-var boxArray = [
-	['r0c0', 'r0c1', 'r0c2', 'r0c3'],
-	['r1c0', 'r1c1', 'r1c2', 'r1c3'],
-	['r2c0', 'r2c1', 'r2c2', 'r2c3'],
-	['r3c0', 'r3c1', 'r3c2', 'r3c3']
-];*/
+var $displayMoves = $('#display-moves');
+var $heroLevel = $('#hero-level');
+var $reset = $('#reset');
 
 var jsArray = [
 	[0,0,0,0],
@@ -23,11 +30,12 @@ var jsArray = [
 	[0,0,0,0]
 ]
 
-var oldArray;
-
-var $displayMoves = $('#display-moves');
-var $heroLevel = $('#hero-level');
-var $reset = $('#reset');
+var oldArray = [
+	[0,0,0,0],
+	[0,0,0,0],
+	[0,0,0,0],
+	[0,0,0,0]
+]
 
 var $boxArray = [
 	[$('#r0c0'), $('#r0c1'), $('#r0c2'), $('#r0c3')],
@@ -39,35 +47,25 @@ var $boxArray = [
 /* TODO!!!!! 
 
 refactoring
-pop ups instead of alerts
+--pop ups instead of alerts
 swipe
 animation
 
 */
-var $head = $('head');
 
 $(document).ready (function () {
 	console.log('ready!');
 	loadChar();
 	loadChar();
-	render();
 	keyUp();
 	checkForHighestChar();
+	render();
 	reset();
-	if ($('#scoreboard').css('font-size') === '16') {
-	   	$head.append('<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">');
-		$head.append('<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>');
-		//$window.on("swipeleft", function (event){
-		//	if ($(event.target) === $board) {
-		//		moveLeft());
-		//	}
-		$board.on("swipeleft", moveLeft);
-		$board.on("swiperight", moveRight);
-	}
 });
 
 var reset = function () {
 	$reset.click(function (){
+		console.log("reset was clicked!");
 		jsArray.forEach(function (row, rowIndex) {
 			row.forEach(function (box, colIndex) {
 				makeBoxEmpty(rowIndex, colIndex);
@@ -75,59 +73,86 @@ var reset = function () {
 		});
 		moves = 0;
 		$displayMoves.html('Moves: ' + 0);
+		renderReset();
+		loadChar();
+		loadChar();
 		render();
-		loadChar();
-		loadChar();
 		clearHighestChar();
 		highestChar = 2;
+		logBoard;
+		logOldBoard;
+		sliceJSArray;
+		logOldBoard;
+		console.log("Reset!")
 	});
 }
 
-var clearHighestChar = function () {
-	$heroLevel.empty();
-	$heroLevel.append($('<img src = "/sprites/superman_final.png" />').addClass("members"));
-	$heroLevel.append($('<img src = "/sprites/wonder_woman_final.png" />').addClass("members"));
+var renderReset = function () {
+	jsArray.forEach (function (row, rowIndex) {
+		row.forEach (function (col, colIndex) {
+			$boxArray[rowIndex][colIndex].children().attr('src','');
+		});
+	});
 }
-
-
 
 var render = function (){
 	jsArray.forEach (function (row, rowIndex) {
 		row.forEach (function (col, colIndex) {
-			switch (jsArray[rowIndex][colIndex]){
-				case 0: $boxArray[rowIndex][colIndex].children().attr('src','')
-				break;
-				case 1: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/superman_final.png')
-				break;
-				case 2: $boxArray[rowIndex][colIndex].children().attr('src','/sprites/wonder_woman_final.png')
-				break;
-				case 4: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/the_flash_final.png')
-				break;
-				case 8: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/green_lantern_final.png')
-				break;
-				case 16: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/black_canary_final.png')
-				break;
-				case 32: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/martian_manhunter_final.png')
-				break;
-				case 64: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/zatanna_final.png')
-				break;
-				case 128: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/cyborg_final.png')
-				break;
-				case 256: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/aquaman_final.png')
-				break;
-				case 512: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/green_arrow_final.png')
-				break;
-				case 1024: $boxArray[rowIndex][colIndex].children().attr('src', '/sprites/batman_final.png')
-			}
-				
+			if (jsArray[rowIndex][colIndex] !== oldArray[rowIndex][colIndex]){
+				switch (jsArray[rowIndex][colIndex]){
+					case 0: 
+						$boxArray[rowIndex][colIndex].children().addClass('animated zoomOut');//.addClass('animated').addClass('zoomOut');
+						window.setTimeout(function () {
+							$boxArray[rowIndex][colIndex].children().attr('src','');
+						}, 500);
+					break;
+					case 1: 
+						$boxArray[rowIndex][colIndex].children().attr('src', supermanPath).addClass('animated').addClass('zoomIn');
+					break;Path
+					case 2: 
+						$boxArray[rowIndex][colIndex].children().attr('src', wonderWomanPath).addClass('animated').addClass('zoomIn');
+					break;
+					case 4: 
+						$boxArray[rowIndex][colIndex].children().attr('src', theFlashPath).addClass('animated').addClass('zoomIn');
+					break;
+					case 8: 
+						$boxArray[rowIndex][colIndex].children().attr('src', greenLanternPath).addClass('animated').addClass('zoomIn');
+					break;
+					case 16: 
+						$boxArray[rowIndex][colIndex].children().attr('src', blackCanaryPath).addClass('animated').addClass('zoomIn');
+					break;
+					case 32: 
+						$boxArray[rowIndex][colIndex].children().attr('src', martianManhunterPath).addClass('animated').addClass('zoomIn');
+					break;
+					case 64: 
+						$boxArray[rowIndex][colIndex].children().attr('src', zatanaPath).addClass('animated').addClass('zoomIn');
+					break;
+					case 128: 
+						$boxArray[rowIndex][colIndex].children().attr('src', cyborgPath).addClass('animated').addClass('zoomIn');
+					break;
+					case 256: 
+						$boxArray[rowIndex][colIndex].children().attr('src', aquamanPath).addClass('animated').addClass('zoomIn');
+					break;
+					case 512: 
+						$boxArray[rowIndex][colIndex].children().attr('src', greenArrowPath).addClass('animated').addClass('zoomIn');
+					break;
+					case 1024: 
+						$boxArray[rowIndex][colIndex].children().attr('src', batmanPath).addClass('animated').addClass('zoomIn');
+					break;
+				}
+				window.setTimeout(function () {
+					$boxArray[rowIndex][colIndex].children().removeClass('animated zoomIn zoomOut');
+				}, 500);
+			} 
 		});
 	});
 }
 
 
-//takes input from user on key down
+//takes input from user on key up
 var keyUp = function () {
 	$(document).keyup(function (key){
+		sliceJSArray();
 		switch(key.which){
 			case 37: 
 				moveLeft();
@@ -146,24 +171,40 @@ var keyUp = function () {
 			break;
 		}
 		//key.preventDefault();
-		checkForWinner();
+	//	window.setTimeout(function () {
 		checkForHighestChar();
+		checkForWinner();
+		checkForGameOver();
 		displayMovesFunction();
+		logOldBoard();
 		logBoard();
+	
+	//	}, 1000);
 	});
 };
 
-
-var newCharPopUp = function (oldChar, newChar) {
-	//$newChar.fadeTo(1200, .8).zIndex(20).html(oldChar + " has recruited " + newChar + " to join The Justice League! Press any key to continue.");
-	$mainBoard.prepend($('<div>').fadeIn().attr("id", "newChar").html(oldChar + " has recruited " + newChar + " to join The Justice League! Press any key to continue."));
-
-
+var sliceJSArray = function () {
+	for (var i = 0; i < 4; i++){
+		oldArray[i] = jsArray[i].slice(0);
+	}
 }
 
-$(document).keyup(function (){
-	$('#newChar').remove();
+var clearHighestChar = function () {
+	$heroLevel.empty();
+	$heroLevel.append($('<img>').attr('src', supermanPath).addClass("members"));
+	$heroLevel.append($('<img>').attr('src', wonderWomanPath).addClass("members"));
+}
+
+var newCharPopUp = function (oldChar, newChar, charPath) {
+	//$newChar.fadeTo(1200, .8).zIndex(20).html(oldChar + " has recruited " + newChar + " to join The Justice League! Press any key to continue.");
+	$mainBoard.prepend($('<div>').fadeIn().attr("id", "newChar").html(oldChar + " has recruited " + newChar + " to join The Justice League! Press return to continue. <br>").css('zIndex', '20'));
+	$('#newChar').append($('<img>').attr('src', charPath).addClass('charOnPopUp'));
+	$(document).keyup(function (key){
+	if (key.which === 13) {
+		$('#newChar').remove();
+	}
 });
+}
 
 var checkForHighestChar = function () {
 	jsArray.forEach(function (row, rowIndex) {
@@ -172,40 +213,49 @@ var checkForHighestChar = function () {
 				highestChar = jsArray[rowIndex][colIndex]
 				console.log("The highest character is " + highestChar);
 				switch (highestChar) {
-					case 4: $heroLevel.append($('<img src = "/sprites/the_flash_final.png" />').addClass("members"));
-						newCharPopUp("Wonder Woman", "The Flash");
+					case 4: 
+						$heroLevel.append($('<img>').attr('src', theFlashPath).addClass("members"));
+						newCharPopUp("Wonder Woman", "The Flash", theFlashPath);
 					//alert('Wonder Woman has recruited The Flash to join the Justice League!');
 					break;
-					case 8: $heroLevel.append($('<img src = "/sprites/green_lantern_final.png" />').addClass("members"));
-						newCharPopUp("The Flash", "Green Lantern");
+					case 8: 
+						$heroLevel.append($('<img>').attr('src', greenLanternPath).addClass("members"));
+						newCharPopUp("The Flash", "Green Lantern", greenLanternPath);
 					//alert('The Flash has recruited Green Lantern to join the Justice League!');
 					break;
-					case 16: $heroLevel.append($('<img src = /sprites/black_canary_final.png />').addClass("members"));
-						newCharPopUp("Green Lantern", "Black Canary");
+					case 16: 
+						$heroLevel.append($('<img>').attr('src', blackCanaryPath).addClass("members"));
+						newCharPopUp("Green Lantern", "Black Canary", blackCanaryPath);
 					//alert('Green Lantern has recruited Black Canary to join the Justice League!');
 					break;
-					case 32: $heroLevel.append($('<img src = /sprites/martian_manhunter_final.png />').addClass("members"));
-						newCharPopUp("Black Canary", "Martian Manhunter");
+					case 32: 
+						$heroLevel.append($('<img>').attr('src', martianManhunterPath).addClass("members"));
+						newCharPopUp("Black Canary", "Martian Manhunter", martianManhunterPath);
 					//alert('Black Canary has recruited Martian Manhunter to join the Justice League!');
 					break;
-					case 64: $heroLevel.append($('<img src="/sprites/zatanna_final.png" />').addClass("members"));
-						newCharPopUp("Martian Manhunter", "Zatanna");
+					case 64: 
+						$heroLevel.append($('<img>').attr('src', zatanaPath).addClass("members"));
+						newCharPopUp("Martian Manhunter", "Zatanna", zatanaPath);
 					//alert('Martian Manhunter has recruited Zatanna to join the Justice League!');
 					break;
-					case 128: $heroLevel.append($('<img src = /sprites/cyborg_final.png />').addClass("members"));
-						newCharPopUp("Zatanna", "Cyborg");
+					case 128: 
+						$heroLevel.append($('<img>').attr('src', cyborgPath).addClass("members"));
+						newCharPopUp("Zatanna", "Cyborg", cyborgPath);
 					//alert('Zatanna has recruited Cyborg to join the Justice League!');
 					break;
-					case 256: $heroLevel.append($('<img src = /sprites/aquaman_final.png />').addClass("members"));
-						newCharPopUp("Cyborg", "Aquaman");
+					case 256: 
+						$heroLevel.append($('<img>').attr('src', aquamanPath).addClass("members"));
+						newCharPopUp("Cyborg", "Aquaman", aquamanPath);
 					//alert('Cyborg has recruited Aquaman to join the Justice League!');
 					break;
-					case 512: $heroLevel.append($('<img src = /sprites/green_arrow_final.png />').addClass("members"));
-						newCharPopUp("Aquaman", "Green Arrow");
+					case 512: 
+						$heroLevel.append($('<img>').attr('src', greenArrowPath).addClass("members"));
+						newCharPopUp("Aquaman", "Green Arrow", greenArrowPath);
 					//alert('Aquaman has recruited Green Arrow to join the Justice League!');
 					break;
-					case 1024: $heroLevel.append($('<img src = /sprites/batman_final.png />').addClass("members"));
-						newCharPopUp("Green Arrow", "Bruce Wayen");
+					case 1024: 
+						$heroLevel.append($('<img>').attr('src', batmanPath).addClass("members"));
+						newCharPopUp("Green Arrow", "Bruce Wayen", batmanPath);
 					//alert('Green Arrow managed to convince loner Bruce Wayne to join the Justice League! Congratulations!! The entire Justice League is formed!');
 					break;
 				} 
@@ -216,27 +266,36 @@ var checkForHighestChar = function () {
 
 // load superman or wonder woman in random unfilled spot
 var loadChar = function () {
-	var filled = false;
 	var randomRow;
 	var randomCol;
+	var randomChar;
+	var filled = false;
 	do {
 		randomRow = parseInt(Math.random() * 4);
 		randomCol = parseInt(Math.random() * 4);
-		var randomSup = Math.random();
+		randomChar = Math.random();
 		if (boxIsEmpty(randomRow, randomCol)) {
-			if (randomSup <= .5) {
-				jsArray[randomRow][randomCol] = 1; 
-				filled = true;
+			if (randomChar <= .5) {
+				setToSuperman(randomRow,randomCol); 
 			} else {
-				jsArray[randomRow][randomCol] = 2;
-				filled = true;
+				setToWonderWoman(randomRow,randomCol); 
 			}
+			filled = true;
 		}
 	} while (!filled);
-	render();
 };
 
+var setToSuperman = function (row, col) {
+	jsArray[row][col] = 1;
+}
+
+var setToWonderWoman = function (row, col) {
+	jsArray[row][col] = 2;
+}
+
 var logBoard = function () {
+	console.log ("log JS array");
+	console.log("\n");
 	for (var i = 0; i < 4; i++) {
 			console.log(jsArray[i][0] + " " + jsArray[i][1] + " " + jsArray[i][2] + " " + jsArray[i][3]);
 			console.log("\n");
@@ -244,42 +303,24 @@ var logBoard = function () {
 	}	
 }
 
-var boxIsEmpty = function (rowIndex, colIndex) {
-	return (jsArray[rowIndex][colIndex] === 0);
-}
-
-var makeBoxEmpty = function (rowIndex, colIndex) {
-	jsArray[rowIndex][colIndex] = 0;
-}
-
-var doubleBox = function (rowIndex, colIndex) {
-	jsArray[rowIndex][colIndex] = jsArray[rowIndex][colIndex] * 2;
-}
-
-var isNotFirstLine = function (index) {
-	return (index !== 0);
-}
-
-var isNotLastLine = function (index) {
-	return (index !== 3);
-}
-
-var slideUp = function () {
-
+var logOldBoard = function () {
+	console.log ("log OLD array");
+	console.log("\n");
+	for (var i = 0; i < 4; i++) {
+			console.log(oldArray[i][0] + " " + oldArray[i][1] + " " + oldArray[i][2] + " " + oldArray[i][3]);
+			console.log("\n");
+	}	
 }
 
 var moveUp = function () {
 	var combined;
 	var wasAMove = false;
 	var colArray;
-	oldArray = jsArray;
-	var img;
-	//loop through the game by column
+	//loop through the array by column
 	for (var colIndex = 0; colIndex <= 3; colIndex++) {
 		colArray = [false, false, false, false];
 		//loop through the game by row, starting at the second row
 		for (var rowIndex = 1; rowIndex <= 3; rowIndex++) {
-
 			//set combined variable to false so a box only combines once
 			combined = false;
 				do {
@@ -289,13 +330,6 @@ var moveUp = function () {
 						if (boxIsEmpty(rowIndex - 1, colIndex)) {
 							//set the box above it to the value of the current box
 							jsArray[rowIndex - 1][colIndex] = jsArray[rowIndex][colIndex];
-
-							//$boxArray[rowIndex][colIndex].children().animate({top: "-=90px"}, 'slow');
-							//$boxArray[rowIndex][colIndex].children().css('transform:', 'rotateX(360deg)');
-
-							//img = $boxArray[rowIndex][colIndex].children().detach();
-							//$boxArray[rowIndex -1][colIndex].children().append(img);
-
 							//and make the current box empty
 							makeBoxEmpty(rowIndex,colIndex);
 							//check one more box up
@@ -314,9 +348,10 @@ var moveUp = function () {
 							colArray[rowIndex - 1]	= true;						
 							//we made a move!
 							wasAMove = true;
-						//if the box directly above is NOT empty and is NOT equal to the box 
+						//if the box directly above is equal to the box but has already been combined
 						} else if (jsArray[rowIndex - 1][colIndex] === jsArray[rowIndex][colIndex] && colArray[rowIndex - 1] === true) {
 							combined = true;
+						//if the box directly above is NOT equal to the box
 						} else if (jsArray[rowIndex - 1][colIndex] !== jsArray[rowIndex][colIndex]) {
 							//move on, keep the box where it is
 							combined = true;
@@ -325,15 +360,15 @@ var moveUp = function () {
 						//if the box is empty, move on
 						combined = true;
 					}
-				//keep looping until the box is combined
+				//keep looping until the box is combined or hits another box
 				} while (!combined);	
-		//end the for loop through row
 		}
-	//end the for loop through column
 	}
 	//check to see if a move was made. If it was, load a new character!
 	if (wasAMove) {
 		loadChar();
+		render();
+
 		moves++;
 	} else {
 		cannotMove = true;
@@ -345,8 +380,6 @@ var moveDown = function () {
 	var combined;
 	var wasAMove = false;
 	var colArray;
-	oldArray = jsArray;
-
 	//loop through the game by column
 	for (var colIndex = 0; colIndex <= 3; colIndex++) {
 		colArray = [false, false, false, false];
@@ -400,6 +433,7 @@ var moveDown = function () {
 	if (wasAMove) {
 		loadChar();
 		moves++;
+		render();
 	} else {
 		cannotMove = true;
 		checkForGameOver();
@@ -411,7 +445,6 @@ var moveLeft = function () {
 	var combined;
 	var wasAMove = false;
 	var rowArray;
-	oldArray = jsArray;
 
 	//loop through the game by row
 	for (var rowIndex = 0; rowIndex <=3; rowIndex++) {
@@ -465,6 +498,7 @@ var moveLeft = function () {
 	if (wasAMove) {
 		loadChar();
 		moves++;
+		render();
 	} else {
 		checkForGameOver();
 	}
@@ -474,7 +508,6 @@ var moveRight = function () {
 	var combined;
 	var wasAMove = false;
 	var rowArray;
-	oldArray = jsArray;
 	//loop through the game by row
 	for (var rowIndex = 0; rowIndex <=3; rowIndex++) {
 		rowArray = [false, false, false, false];
@@ -527,6 +560,7 @@ var moveRight = function () {
 	if (wasAMove) {
 		loadChar();
 		moves++;
+		render();
 	} else {
 		cannotMove = true;
 		checkForGameOver();
@@ -538,7 +572,7 @@ var checkForWinner = function () {
 		row.forEach(function (col, colIndex) {
 			if (jsArray[rowIndex][colIndex] === 1024) {
 				winner = true;
-				console.log("You won the game in " + moves + " moves!");
+				$mainBoard.prepend($('<div>').fadeIn().attr("id", "newChar").html("Congratulations! You beat Lex Luthor and formed The Justice League in " + moves + " moves!"));
 			}
 
 		});
@@ -580,6 +614,27 @@ var checkForGameOver = function () {
 		alert("You're too late. Lex Luthor has attacked the Justice League before they could unite their alternate realities. Please try again.")
 	}
 
+}
+
+
+var boxIsEmpty = function (rowIndex, colIndex) {
+	return (jsArray[rowIndex][colIndex] === 0);
+}
+
+var makeBoxEmpty = function (rowIndex, colIndex) {
+	jsArray[rowIndex][colIndex] = 0;
+}
+
+var doubleBox = function (rowIndex, colIndex) {
+	jsArray[rowIndex][colIndex] = jsArray[rowIndex][colIndex] * 2;
+}
+
+var isNotFirstLine = function (index) {
+	return (index !== 0);
+}
+
+var isNotLastLine = function (index) {
+	return (index !== 3);
 }
 
 var displayMovesFunction = function () {
