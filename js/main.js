@@ -123,7 +123,7 @@ var render = function (){
 		row.forEach (function (col, colIndex) {
 			$boxArray[rowIndex][colIndex].children().css('margin', '4');
 
-			//if (jsArray[rowIndex][colIndex] !== oldArray[rowIndex][colIndex]){
+			if (jsArray[rowIndex][colIndex] !== oldArray[rowIndex][colIndex]){
 					switch (jsArray[rowIndex][colIndex]){
 						case 0: 
 							//$boxArray[rowIndex][colIndex].children().addClass('animated ').addClass(classType);//.addClass('animated').addClass('zoomOut');
@@ -169,7 +169,7 @@ var render = function (){
 						$boxArray[rowIndex][colIndex].children().removeClass('fadeIn');
 					}, 500);
 				}, 800);*/		
-			//}
+			}
 		});
 	});
 	displayMovesFunction();
@@ -328,6 +328,7 @@ var newCharPopUp = function (oldChar, newChar, charPath) {
 
 // load superman or wonder woman in random unfilled spot
 var loadChar = function () {
+	sliceJSArray();
 	var randomRow;
 	var randomCol;
 	var randomChar;
@@ -382,32 +383,32 @@ var animateBox = function (translation, direction) {
 		$box = $boxArray[boxObject.startPosition[0]][boxObject.startPosition[1]].children();
 		distanceToMove = (90 * boxObject.boxesMoved) + (8 * boxObject.boxesMoved);
 		if (direction === "up") {
-			$box.animate({'margin-top': '-=' + distanceToMove}, 'slow');
+			$box.animate({'top': '-=' + distanceToMove}, 'slow');
 			window.setTimeout(function () {
-				//render();
+				render();
 				$box.css('margin-top', '0');
-			}, 800);
+			}, 1000);
 		}
 		if (direction === "down") {
-			$box.animate({'margin-up': '+=' + distanceToMove}, 'slow');
+			$box.animate({'up': '-=' + distanceToMove}, 'slow');
 			window.setTimeout(function () {
-				//render();
+				render();
 				$box.css('margin-bottom', '0');
-			}, 800);
+			}, 1000);
 		}
 		if (direction === "left") {
-			$box.animate({'margin-left': '-=' + distanceToMove}, 'slow');
+			$box.animate({'left': '-=' + distanceToMove}, 'slow');
 			window.setTimeout(function () {
-				//render();
+				render();
 				$box.css('margin-left', '0');
-			}, 800);
+			}, 1000);
 		}
 		if (direction === "right") {
-			$box.animate({'<margin-left></margin-left>': '+=' + distanceToMove}, 'slow');
+			$box.animate({'right': '-=' + distanceToMove}, 'slow');
 			window.setTimeout(function () {
-				//render();
+				render();
 				$box.css('margin-right', '0');
-			}, 800);
+			}, 1000);
 		}
 
 	});
