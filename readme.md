@@ -30,9 +30,9 @@ __*Game clone designed by Tara Strauss*__
 
 - As a player, I can reset the game using a reset button to try again
 
-- *(current)* As a player, I see animated boxes moving across the board (very basic animation) so it looks pleasing and simple
-
 - As a player, I can keep track of how many moves I made this round so I can brag to my friends (if I win in fewer moves)
+
+- As a player, I can see how far I've gotten on screen, because anytime a new superhero appears, he or she is added onto a "Justice League Members" part of my website, which indicates who has joined the justice league
 
 - As a player, I see buttons with superhero symbols faded in the background, with a number in the foreground so I feel like I'm forming the justice league if I win!
 
@@ -42,18 +42,16 @@ __*Game clone designed by Tara Strauss*__
 
 *background, darker number in the foreground)*
 
-- As a player, I can keep track of how many tries it takes to win the game so I can brag to my friends
+- *(current)* As a player, I can keep track of how many tries it takes to win the game so I can brag to my friends
 
-- As a player, I can play the game on my cell phone by swipping in any direction. The information from the right hand side moves to the bottom on my cell phone.
+- *(current)* As a player, I see animated boxes moving across the board (very basic animation) so it looks pleasing and simple
 
-- As a player, I can see how far I've gotten on screen, because anytime a new superhero appears, he or she is added onto a "Justice League Members" part of my website, which indicates who has joined the justice league
+- *(current)* Instead of using the keyboard, as a player, I have the choice of clicking and swiping (or moving my mouse) in order to move the board 
 
 
 ###Icebox
 
 - As a player, I see a POP UP when I first load the page. It explains the story behind the game in a short, concise way. On the main page, I can still see simple instructions for the gameplay.
-
-- *(current)* Instead of using the keyboard, as a player, I have the choice of clicking and swiping (or moving my mouse) in order to move the board 
 
 - As a player, I can use an undo button (and I am alerted if I won without using undo)
 
