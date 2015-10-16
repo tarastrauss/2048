@@ -4,17 +4,17 @@ var highestChar = 2;
 var moves = 0;
 var cannotMove = false;
 
-var supermanPath = "/sprites/superman_final.png";
-var wonderWomanPath = "/sprites/wonder_woman_final.png";
-var theFlashPath = "/sprites/the_flash_final.png";
-var greenLanternPath = "/sprites/green_lantern_final.png";
-var blackCanaryPath = "/sprites/black_canary_final.png";
-var martianManhunterPath = "/sprites/martian_manhunter_final.png";
-var zatanaPath = "/sprites/zatanna_final.png";
-var cyborgPath = "/sprites/cyborg_final.png";
-var aquamanPath = "/sprites/aquaman_final.png";
-var greenArrowPath = "/sprites/green_arrow_final.png";
-var batmanPath = "/sprites/batman_final.png";
+var supermanPath = "sprites/superman_final.png";
+var wonderWomanPath = "sprites/wonder_woman_final.png";
+var theFlashPath = "sprites/the_flash_final.png";
+var greenLanternPath = "sprites/green_lantern_final.png";
+var blackCanaryPath = "sprites/black_canary_final.png";
+var martianManhunterPath = "sprites/martian_manhunter_final.png";
+var zatanaPath = "sprites/zatanna_final.png";
+var cyborgPath = "sprites/cyborg_final.png";
+var aquamanPath = "sprites/aquaman_final.png";
+var greenArrowPath = "sprites/green_arrow_final.png";
+var batmanPath = "sprites/batman_final.png";
 
 var $board = $('#board');
 var $newChar = $('#newChar');
@@ -103,58 +103,58 @@ var render = function (classType){
 	jsArray.forEach (function (row, rowIndex) {
 		row.forEach (function (col, colIndex) {
 			if (jsArray[rowIndex][colIndex] !== oldArray[rowIndex][colIndex]){
-				if (jsArray[rowIndex][colIndex] === 0) {
+				/*if (jsArray[rowIndex][colIndex] === 0) {
 					$boxArray[rowIndex][colIndex].children().addClass('animated ').addClass(classType);//.addClass('animated').addClass('zoomOut');
 						window.setTimeout(function () {
 							$boxArray[rowIndex][colIndex].children().attr('src','').removeClass('animated').removeClass(classType);
 						}, 1200);
 				}
-				window.setTimeout(function () {
+				window.setTimeout(function () {*/
 					switch (jsArray[rowIndex][colIndex]){
-						/*case 0: 
-							$boxArray[rowIndex][colIndex].children().addClass('animated ').addClass(classType);//.addClass('animated').addClass('zoomOut');
-							window.setTimeout(function () {
-								$boxArray[rowIndex][colIndex].children().attr('src','').removeClass('animated').removeClass(classType);
-							}, 1000); */ 
-						//break;
+						case 0: 
+							//$boxArray[rowIndex][colIndex].children().addClass('animated ').addClass(classType);//.addClass('animated').addClass('zoomOut');
+							//window.setTimeout(function () {
+							$boxArray[rowIndex][colIndex].children().attr('src','')
+							//}, 1000); */ 
+						break;
 						case 1: 
-							$boxArray[rowIndex][colIndex].children().attr('src', supermanPath).addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', supermanPath);//.addClass('animated').addClass('fadeIn');
 						break;Path
 						case 2: 
-							$boxArray[rowIndex][colIndex].children().attr('src', wonderWomanPath).addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', wonderWomanPath);//.addClass('animated').addClass('fadeIn');
 						break;
 						case 4: 
-							$boxArray[rowIndex][colIndex].children().attr('src', theFlashPath).addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', theFlashPath);//.addClass('animated').addClass('fadeIn');
 						break;
 						case 8: 
-							$boxArray[rowIndex][colIndex].children().attr('src', greenLanternPath).addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', greenLanternPath);//.addClass('animated').addClass('fadeIn');
 						break;
 						case 16: 
-							$boxArray[rowIndex][colIndex].children().attr('src', blackCanaryPath).addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', blackCanaryPath);//.addClass('animated').addClass('fadeIn');
 						break;
 						case 32: 
-							$boxArray[rowIndex][colIndex].children().attr('src', martianManhunterPath).addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', martianManhunterPath);//.addClass('animated').addClass('fadeIn');
 						break;
 						case 64: 
-							$boxArray[rowIndex][colIndex].children().attr('src', zatanaPath).addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', zatanaPath);//.addClass('animated').addClass('fadeIn');
 						break;
 						case 128: 
-							$boxArray[rowIndex][colIndex].children().attr('src', cyborgPath).addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', cyborgPath);//.addClass('animated').addClass('fadeIn');
 						break;
 						case 256: 
-							$boxArray[rowIndex][colIndex].children().attr('src', aquamanPath).addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', aquamanPath);//.addClass('animated').addClass('fadeIn');
 						break;
 						case 512: 
-							$boxArray[rowIndex][colIndex].children().attr('src', greenArrowPath).addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', greenArrowPath);//.addClass('animated').addClass('fadeIn');
 						break;
 						case 1024: 
-							$boxArray[rowIndex][colIndex].children().attr('src', batmanPath).addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', batmanPath);//.addClass('animated').addClass('fadeIn');
 						break;
 					}
-					window.setTimeout(function () {
+					/*window.setTimeout(function () {
 						$boxArray[rowIndex][colIndex].children().removeClass('fadeIn');
 					}, 500);
-				}, 800);		
+				}, 800);*/		
 			}
 		});
 	});
@@ -337,17 +337,33 @@ var logOldBoard = function () {
 	}	
 }
 
+var animation = function (translate, direction) {
+	// for each box in translation
+	  // $box = $(box)
+	  // $box.css position relative
+	  // if direction up
+	  	// $box.animate (top -tileheight * box.numMoved, 
+
+	 //setimeout render period
+
+}
+
 var moveUp = function () {
 	var combined;
 	var wasAMove = false;
 	var colArray;
+	var currentBox = {};
+	var translation = [];
 	//loop through the array by column
 	for (var colIndex = 0; colIndex <= 3; colIndex++) {
 		colArray = [false, false, false, false];
 		//loop through the game by row, starting at the second row
 		for (var rowIndex = 1; rowIndex <= 3; rowIndex++) {
 			//set combined variable to false so a box only combines once
+			//currentBox.startPosition([rowIndex, colIndex]);
 			combined = false;
+			//currentBox.hasMoved = 0;
+			// currentBox.startPosition = []
 				do {
 					//if the box is not empty and we're not looking at the first row
 					if (isNotFirstLine(rowIndex) && !boxIsEmpty(rowIndex,colIndex)) {
@@ -359,6 +375,8 @@ var moveUp = function () {
 							makeBoxEmpty(rowIndex,colIndex);
 							//check one more box up
 							rowIndex--;
+							//keep track of how many spaces a box moved
+							//currentBox.hasMoved++;
 							//we made a move!
 							wasAMove = true;
 						//if the box directly above is NOT empty and is equal to the box AND the box has not been combined
@@ -387,7 +405,10 @@ var moveUp = function () {
 					}
 				//keep looping until the box is combined or hits another box
 				} while (!combined);	
+				//translation.push(currentBox); 
+				//currentBox = {}
 		}
+		//animate(translation, "up");
 	}
 	//check to see if a move was made. If it was, load a new character!
 	if (wasAMove) {
@@ -522,7 +543,7 @@ var moveLeft = function () {
 	if (wasAMove) {
 		loadChar();
 		moves++;
-		render("fadeOutLeft");
+		render("slideOutLeft");
 	} else {
 		checkForGameOver();
 	}
