@@ -96,15 +96,6 @@ var emptyAll = function () {
 	});
 }
 
-//render the game reset
-var renderReset = function () {
-	jsArray.forEach (function (row, rowIndex) {
-		row.forEach (function (col, colIndex) {
-			$boxArray[rowIndex][colIndex].children().attr('src','');
-		});
-	});
-}
-
 //clear the highest character on reset
 var clearHighestChar = function () {
 	$heroLevel.empty();
@@ -115,6 +106,15 @@ var clearHighestChar = function () {
 //************************************************************************
 //************************ Render Function *******************************
 //************************************************************************
+
+//render the game reset
+var renderReset = function () {
+	jsArray.forEach (function (row, rowIndex) {
+		row.forEach (function (col, colIndex) {
+			$boxArray[rowIndex][colIndex].children().attr('src','');
+		});
+	});
+}
 
 //render after each turn
 var render = function (){
@@ -328,23 +328,22 @@ var loadChar = function () {
 		if (boxIsEmpty(randomRow, randomCol)) {
 			if (randomChar <= .5) {
 				setToSuperman(randomRow,randomCol); 
-				//renderNewChar(randomRow, randomCol, supermanPath);
+				renderNewChar(randomRow, randomCol, supermanPath);
 			} else {
 				setToWonderWoman(randomRow,randomCol); 
-				//renderNewChar(randomRow, randomCol, wonderWomanPath);
+				renderNewChar(randomRow, randomCol, wonderWomanPath);
 			}
 			filled = true;
 		}
 	} while (!filled);
-	render();
+
 };
 
-var setToSuperman = function (row, col) {
-	jsArray[row][col] = 1;
-}
-
-var setToWonderWoman = function (row, col) {
-	jsArray[row][col] = 2;
+var renderNewChar = function (rowIndex, colIndex, charPath) {
+	$boxArray[rowIndex][colIndex].children().attr('src', charPath).addClass('animated').addClass('tada');
+	window.setTimeout(function () {
+		$boxArray[rowIndex][colIndex].children().removeClass('tada');
+	}, 1200);
 }
 
 //************************************************************************
@@ -407,7 +406,6 @@ var moveUp = function () {
 		}
 	//end loop through col
 	}
-
 	//check to see if a move was made. If it was, load a new character!
 	if (wasAMove) {
 		loadChar();
@@ -691,6 +689,13 @@ var isNotLastLine = function (index) {
 	return (index !== 3);
 }
 
+var setToSuperman = function (row, col) {
+	jsArray[row][col] = 1;
+}
+
+var setToWonderWoman = function (row, col) {
+	jsArray[row][col] = 2;
+}
 
 
 
