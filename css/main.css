@@ -45,10 +45,13 @@
 	background-color: rgba(150,150,150,.4);
 	margin: 4px;
 	font-size: 0;
+	position: relative;
 }
 
 .boxImg {
 	display: block;
+	position: relative;
+	margin: 0;
 }
 
 #board {
