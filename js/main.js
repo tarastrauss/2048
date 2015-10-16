@@ -73,11 +73,10 @@ var reset = function () {
 		console.log("reset was clicked!");
 		emptyAll();
 		moves = 0;
-		//$displayMoves.html('Moves: ' + 0);
 		renderReset();
 		loadChar();
 		loadChar();
-		//render();
+		render();
 		clearHighestChar();
 		highestChar = 2;
 		logBoard;
@@ -122,54 +121,44 @@ var render = function (){
 	jsArray.forEach (function (row, rowIndex) {
 		row.forEach (function (col, colIndex) {
 			$boxArray[rowIndex][colIndex].children().css('margin', '4');
-
-			//if (jsArray[rowIndex][colIndex] !== oldArray[rowIndex][colIndex]){
-					switch (jsArray[rowIndex][colIndex]){
-						case 0: 
-							//$boxArray[rowIndex][colIndex].children().addClass('animated ').addClass(classType);//.addClass('animated').addClass('zoomOut');
-							//window.setTimeout(function () {
-							$boxArray[rowIndex][colIndex].children().attr('src','');
-							//}, 1000); */ 
-						break;
-						case 1: 
-							$boxArray[rowIndex][colIndex].children().attr('src', supermanPath);//.addClass('animated').addClass('fadeIn');
-						break;Path
-						case 2: 
-							$boxArray[rowIndex][colIndex].children().attr('src', wonderWomanPath);//.addClass('animated').addClass('fadeIn');
-						break;
-						case 4: 
-							$boxArray[rowIndex][colIndex].children().attr('src', theFlashPath);//.addClass('animated').addClass('fadeIn');
-						break;
-						case 8: 
-							$boxArray[rowIndex][colIndex].children().attr('src', greenLanternPath);//.addClass('animated').addClass('fadeIn');
-						break;
-						case 16: 
-							$boxArray[rowIndex][colIndex].children().attr('src', blackCanaryPath);//.addClass('animated').addClass('fadeIn');
-						break;
-						case 32: 
-							$boxArray[rowIndex][colIndex].children().attr('src', martianManhunterPath);//.addClass('animated').addClass('fadeIn');
-						break;
-						case 64: 
-							$boxArray[rowIndex][colIndex].children().attr('src', zatanaPath);//.addClass('animated').addClass('fadeIn');
-						break;
-						case 128: 
-							$boxArray[rowIndex][colIndex].children().attr('src', cyborgPath);//.addClass('animated').addClass('fadeIn');
-						break;
-						case 256: 
-							$boxArray[rowIndex][colIndex].children().attr('src', aquamanPath);//.addClass('animated').addClass('fadeIn');
-						break;
-						case 512: 
-							$boxArray[rowIndex][colIndex].children().attr('src', greenArrowPath);//.addClass('animated').addClass('fadeIn');
-						break;
-						case 1024: 
-							$boxArray[rowIndex][colIndex].children().attr('src', batmanPath);//.addClass('animated').addClass('fadeIn');
-						break;
-					}
-					/*window.setTimeout(function () {
-						$boxArray[rowIndex][colIndex].children().removeClass('fadeIn');
-					}, 500);
-				}, 800);*/		
-			//}
+			switch (jsArray[rowIndex][colIndex]){
+				case 0: 
+					$boxArray[rowIndex][colIndex].children().attr('src','');
+				break;
+				case 1: 
+					$boxArray[rowIndex][colIndex].children().attr('src', supermanPath);//.addClass('animated').addClass('fadeIn');
+				break;Path
+				case 2: 
+					$boxArray[rowIndex][colIndex].children().attr('src', wonderWomanPath);//.addClass('animated').addClass('fadeIn');
+				break;
+				case 4: 
+					$boxArray[rowIndex][colIndex].children().attr('src', theFlashPath);//.addClass('animated').addClass('fadeIn');
+				break;
+				case 8: 
+					$boxArray[rowIndex][colIndex].children().attr('src', greenLanternPath);//.addClass('animated').addClass('fadeIn');
+				break;
+				case 16: 
+					$boxArray[rowIndex][colIndex].children().attr('src', blackCanaryPath);//.addClass('animated').addClass('fadeIn');
+				break;
+				case 32: 
+					$boxArray[rowIndex][colIndex].children().attr('src', martianManhunterPath);//.addClass('animated').addClass('fadeIn');
+				break;
+				case 64: 
+					$boxArray[rowIndex][colIndex].children().attr('src', zatanaPath);//.addClass('animated').addClass('fadeIn');
+				break;
+				case 128: 
+					$boxArray[rowIndex][colIndex].children().attr('src', cyborgPath);//.addClass('animated').addClass('fadeIn');
+				break;
+				case 256: 
+					$boxArray[rowIndex][colIndex].children().attr('src', aquamanPath);//.addClass('animated').addClass('fadeIn');
+				break;
+				case 512: 
+					$boxArray[rowIndex][colIndex].children().attr('src', greenArrowPath);//.addClass('animated').addClass('fadeIn');
+				break;
+				case 1024: 
+					$boxArray[rowIndex][colIndex].children().attr('src', batmanPath);//.addClass('animated').addClass('fadeIn');
+				break;
+			}
 		});
 	});
 	displayMovesFunction();
@@ -349,13 +338,7 @@ var loadChar = function () {
 	} while (!filled);
 	render();
 };
-/*
-var renderNewChar = function (rowIndex, colIndex, charPath) {
-	$boxArray[rowIndex][colIndex].children().attr('src', charPath);//.addClass('animated').addClass('tada');
-	window.setTimeout(function () {
-		$boxArray[rowIndex][colIndex].children().removeClass('tada');
-	}, 1200);
-}*/
+
 var setToSuperman = function (row, col) {
 	jsArray[row][col] = 1;
 }
@@ -368,67 +351,11 @@ var setToWonderWoman = function (row, col) {
 //***************************** Move Functions ***************************
 //************************************************************************
 
-/*[
-	{
-		startPosition: [rowIndex, colIndex]
-		boxesMoved: x
-	}, 
-]*/
-
-var animateBox = function (translation, direction) {
-	var $box;
-	var distanceToMove;
-	translation.forEach(function (boxObject) {
-		$box = $boxArray[boxObject.startPosition[0]][boxObject.startPosition[1]].children();
-		distanceToMove = (90 * boxObject.boxesMoved) + (8 * boxObject.boxesMoved);
-		if (direction === "up") {
-			$box.animate({'margin-top': '-=' + distanceToMove}, 'slow');
-			window.setTimeout(function () {
-				//render();
-				$box.css('margin-top', '0');
-			}, 800);
-		}
-		if (direction === "down") {
-			$box.animate({'margin-up': '+=' + distanceToMove}, 'slow');
-			window.setTimeout(function () {
-				//render();
-				$box.css('margin-bottom', '0');
-			}, 800);
-		}
-		if (direction === "left") {
-			$box.animate({'margin-left': '-=' + distanceToMove}, 'slow');
-			window.setTimeout(function () {
-				//render();
-				$box.css('margin-left', '0');
-			}, 800);
-		}
-		if (direction === "right") {
-			$box.animate({'<margin-left></margin-left>': '+=' + distanceToMove}, 'slow');
-			window.setTimeout(function () {
-				//render();
-				$box.css('margin-right', '0');
-			}, 800);
-		}
-
-	});
-
-	// for each box in translation
-	  // $box = $(box)
-	  // $box.css position relative
-	  // if direction up
-	  	// $box.animate (top -tileheight * box.numMoved, 
-
-	 //setimeout render period
-
-}
-
 var moveUp = function () {
 	var combined;
 	var wasAMove = false;
 	var colArray;
-	var currentBox = {};
-	var translation = [];
-	var boxesMoved;
+
 	//loop through the array by column
 	for (var colIndex = 0; colIndex <= 3; colIndex++) {
 		colArray = [false, false, false, false];
@@ -436,9 +363,7 @@ var moveUp = function () {
 		for (var rowIndex = 1; rowIndex <= 3; rowIndex++) {
 			//set combined variable to false so a box only combines once
 			combined = false;
-			currentBox = {};
-			boxesMoved = 0;
-			currentBox.startPosition = [rowIndex, colIndex];
+
 			do {
 				//if the box is not empty and we're not looking at the first row
 				if (isNotFirstLine(rowIndex) && !boxIsEmpty(rowIndex,colIndex)) {
@@ -450,11 +375,8 @@ var moveUp = function () {
 						makeBoxEmpty(rowIndex,colIndex);
 						//check one more box up
 						rowIndex--;
-						//keep track of how many spaces a box moved
-						boxesMoved++;
 						//we made a move!
 						wasAMove = true;
-
 					//if the box directly above is NOT empty and is equal to the box AND the box has not been combined
 					} else if (jsArray[rowIndex - 1][colIndex] === jsArray[rowIndex][colIndex] && colArray[rowIndex - 1] === false) {
 						//add the two together and store them in the box above
@@ -481,23 +403,16 @@ var moveUp = function () {
 				}
 			//keep looping until the box is combined or hits another box
 			} while (!combined);	
-			currentBox.boxesMoved = boxesMoved;
-			translation.push(currentBox); 
-
-			if (boxesMoved !== 0) {
-				animateBox(translation, "up");
-			}
+		//end loop through row
 		}
-
+	//end loop through col
 	}
 
 	//check to see if a move was made. If it was, load a new character!
 	if (wasAMove) {
-		window.setTimeout(function () {
-			loadChar();
-			render();
-			moves++;
-		}, 1000);
+		loadChar();
+		render();
+		moves++;
 	} else {
 		cannotMove = true;
 		checkForGameOver();
@@ -508,9 +423,6 @@ var moveDown = function () {
 	var combined;
 	var wasAMove = false;
 	var colArray;
-	var currentBox = {};
-	var translation = [];
-	var boxesMoved;
 	//loop through the game by column
 	for (var colIndex = 0; colIndex <= 3; colIndex++) {
 		colArray = [false, false, false, false];
@@ -518,10 +430,6 @@ var moveDown = function () {
 		for (var rowIndex = 2; rowIndex >=0; rowIndex--) {
 			//set combined variable to false so a box only combines once
 			combined = false;
-			currentBox = {};
-			boxesMoved = 0;
-			currentBox.startPosition = [rowIndex, colIndex];
-
 			do {
 				//if the box is not empty and we're not looking at the last row
 				if (isNotLastLine(rowIndex) && !boxIsEmpty(rowIndex,colIndex)) {
@@ -532,9 +440,7 @@ var moveDown = function () {
 						//and make the current box empty
 						makeBoxEmpty(rowIndex,colIndex);
 						//check one more box down
-						rowIndex++;	
-						//keep track of how many spaces a box moved
-						boxesMoved++;														
+						rowIndex++;														
 						//we made a move!
 						wasAMove = true;
 					//if the box directly below is NOT empty and is equal to the box
@@ -562,24 +468,15 @@ var moveDown = function () {
 				}
 			//keep looping until the box is combined
 			} while (!combined);	
-
-			currentBox.boxesMoved = boxesMoved;
-			translation.push(currentBox); 
-
-			if (boxesMoved !== 0) {
-				animateBox(translation, "down");
-			}
 		//end the for loop through row
 		}
 	//end the for loop through column
 	}
 	//check to see if a move was made. If it was, load a new character!
 	if (wasAMove) {
-		window.setTimeout(function () {
-			render();
-			loadChar();
-			moves++;
-		}, 1000);
+		render();
+		loadChar();
+		moves++;
 	}  else {
 		cannotMove = true;
 		checkForGameOver();
@@ -591,9 +488,6 @@ var moveLeft = function () {
 	var combined;
 	var wasAMove = false;
 	var rowArray;
-	var currentBox = {};
-	var translation = [];
-	var boxesMoved;
 	//loop through the game by row
 	for (var rowIndex = 0; rowIndex <=3; rowIndex++) {
 		rowArray = [false, false, false, false];
@@ -601,9 +495,6 @@ var moveLeft = function () {
 		for (var colIndex = 1; colIndex <= 3; colIndex++) {
 			//set combined variable to false so a box only combines once
 			combined = false;
-			currentBox = {};
-			boxesMoved = 0;
-			currentBox.startPosition = [rowIndex, colIndex];
 			do {
 				if (isNotFirstLine(colIndex) && !boxIsEmpty(rowIndex, colIndex)) {
 					if (boxIsEmpty(rowIndex, colIndex - 1)) {
@@ -612,9 +503,7 @@ var moveLeft = function () {
 						//and make the current box empty
 						makeBoxEmpty(rowIndex, colIndex);
 						//check one more box to the left
-						colIndex--;		
-						//keep track of how many spaces a box moved
-						boxesMoved++;							
+						colIndex--;								
 						//we made a move!
 						wasAMove = true;
 					//if the box directly to the left is NOT empty and is equal to the box AND it hasn't been combind before
@@ -625,7 +514,7 @@ var moveLeft = function () {
 						makeBoxEmpty(rowIndex,colIndex);
 						//the box has been combined, so move on
 						combined = true;
-	
+						//tell the rowArray that a box has been combined
 						rowArray[colIndex - 1] = true;								
 						//we made a move!
 						wasAMove = true;
@@ -642,22 +531,15 @@ var moveLeft = function () {
 				}
 				//keep looping until the box is furthestLeft
 			} while (!combined);	
-			currentBox.boxesMoved = boxesMoved;
-			translation.push(currentBox); 
-			if (boxesMoved !== 0) {
-				animateBox(translation, "left");
-			}
 		//end the for loop through column
 		}
 	//end the for loop through row
 	}
 	//check to see if a move was made. If it was, load a new character!
 	if (wasAMove) {
-		window.setTimeout(function () {
-			render();
-			loadChar();
-			moves++;
-		}, 1000);
+		render();
+		loadChar();
+		moves++;
 	}  else {
 		checkForGameOver();
 	}
@@ -667,9 +549,6 @@ var moveRight = function () {
 	var combined;
 	var wasAMove = false;
 	var rowArray;
-	var currentBox = {};
-	var translation = [];
-	var boxesMoved;
 	//loop through the game by row
 	for (var rowIndex = 0; rowIndex <=3; rowIndex++) {
 		rowArray = [false, false, false, false];
@@ -677,10 +556,6 @@ var moveRight = function () {
 		for (var colIndex = 2; colIndex >= 0; colIndex--) {
 			//set combined variable to false so a box only combines once
 			combined = false;
-			currentBox = {};
-			boxesMoved = 0;
-			currentBox.startPosition = [rowIndex, colIndex];
-
 			do {
 				//if the box is not empty and we're not looking at the fourth column
 				if (isNotLastLine(colIndex) && !boxIsEmpty(rowIndex,colIndex)) {
@@ -691,9 +566,7 @@ var moveRight = function () {
 						//and make the current box empty
 						makeBoxEmpty(rowIndex,colIndex);
 						//check one more box to the right
-						colIndex++;		
-						//keep track of how many spaces a box moved
-						boxesMoved++;						
+						colIndex++;							
 						//we made a move!
 						wasAMove = true;
 					//if the box directly to the right is NOT empty and is equal to the box
@@ -704,6 +577,7 @@ var moveRight = function () {
 						makeBoxEmpty(rowIndex,colIndex);
 						//the box has been combined, so move on
 						combined = true;
+						//tell the rowArray that a box has been combined
 						rowArray[colIndex + 1] = true;									
 						//we made a move!
 						wasAMove = true;
@@ -720,22 +594,15 @@ var moveRight = function () {
 				}
 			//keep looping until the box is combined
 			} while (!combined);
-			currentBox.boxesMoved = boxesMoved;
-			translation.push(currentBox); 
-			if (boxesMoved !== 0) {
-				animateBox(translation, "right");
-			}	
 		//end the for loop through column
 		}
 	//end the for loop through row
 	}
 	//check to see if a move was made. If it was, load a new character!
 	if (wasAMove) {
-		window.setTimeout(function () {
-			render();
-			loadChar();
-			moves++;
-		}, 1000);
+		render();
+		loadChar();
+		moves++;
 	}  else {
 		cannotMove = true;
 		checkForGameOver();
@@ -753,9 +620,7 @@ var checkForWinner = function () {
 				winner = true;
 				$mainBoard.prepend($('<div>').fadeIn().attr("id", "newChar").html("Congratulations! You beat Lex Luthor and formed The Justice League in " + moves + " moves!"));
 			}
-
 		});
-
 	});
 }
 
@@ -805,7 +670,6 @@ var sliceJSArray = function () {
 		oldArray[i] = jsArray[i].slice(0);
 	}
 }
-
 
 var boxIsEmpty = function (rowIndex, colIndex) {
 	return (jsArray[rowIndex][colIndex] === 0);
