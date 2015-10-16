@@ -16,9 +16,9 @@ __*Game clone designed by Tara Strauss*__
 
 
 
-![alt text](http://i.imgur.com/XUYYClN.jpg?1 =300px)
+<center> ![alt text](http://i.imgur.com/XUYYClN.jpg?1 =300px) </center>
 
-*(First wireframe, hand-drawn)*
+<center> *(First wireframe, hand-drawn)* </center>
 
 ###Sprint Planning (MVP)
 
@@ -36,11 +36,11 @@ __*Game clone designed by Tara Strauss*__
 
 - As a player, I see buttons with superhero symbols faded in the background, with a number in the foreground so I feel like I'm forming the justice league if I win!
 
-![alt text](http://i.imgur.com/ZaBqGM5.jpg?3 =250px)
+<center> ![alt text](http://i.imgur.com/ZaBqGM5.jpg?3 =250px) </center>
 
-*(box design: superhero in pale colors in the*
+<center> *(box design: superhero in pale colors in the* </center>
 
-*background, darker number in the foreground)*
+<center> *background, darker number in the foreground)* </center>
 
 - *(current)* As a player, I can keep track of how many tries it takes to win the game so I can brag to my friends
 
@@ -65,6 +65,6 @@ __*Game clone designed by Tara Strauss*__
 
 - As a player, I have to memorize where all the boxes are because the boxes on the board flash off after a new box appears. This will make the game more challenging!
 
-![alt text](http://i.imgur.com/GNn8ABi.jpg?3 =400px)
+<center> ![alt text](http://i.imgur.com/GNn8ABi.jpg?3 =400px) </center>
 
-*(seoncd wireframe, white board drawing)*
+<center> *(seoncd wireframe, white board drawing)* </center>
