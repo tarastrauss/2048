@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Clear Sans";
-    src: url("/css/ClearSans-Bold-webfont.eot");
+    src: url("../css/ClearSans-Bold-webfont.eot");
     font-weight: normal;
     font-style: normal;
 }
@@ -9,34 +9,33 @@
 #name-2048 {
 	display: inline-block;
 	text-align: center;
-	font-family: arial;
+	font-family: Tahoma;
 	width: 150px;
 	margin-left: 10px;
-	font-size: 64px;
-	margin-top: -20px;
-	color: DodgerBlue;
+	font-size: 60px;
+	margin-top: -30px;
+	color: #776e65;
 	font-weight: bold;
 }
-
 #crisis {
 	display: inline-block;
-	width: 250px;
-	margin: 20px 0 0 50px;
+	width: 300px;
+	margin: 10px 0 0 40px;
 	border-radius: 10px;
 }
 
 #full-title {
-	max-width: 500px;
+	max-width: 550px;
 	margin: 0 auto;
-	height: 150px;
+	height: 100px;
 }
 
 #instructions {
 	text-align: center;
 	max-width: 600px;
 	margin: 0 auto;
-	font-family: arial;
 	font-size: 16px;
+	margin-bottom: 20px;
 }
 
 .box {
@@ -44,50 +43,186 @@
 	width: 90px;
 	height: 90px;
 	background-color: rgba(150,150,150,.4);
-
+	margin: 4px;
+	font-size: 0;
 }
 
-.box img {
+.boxImg {
+	display: block;
 }
 
 #board {
-	max-width: 390px;
-	margin-top: 30px;
+	max-width: 400px;
+	margin: 15px 0 5px 50px;
 	float: left;
-	margin-left: 70px;
 	display: inline-block;
 	border-radius: 3px;
-	padding-left: 4px;
-	padding-top: 4px;
-	border: 6px solid DodgerBlue;
+	padding: 8px 6px 6px 8px;
+	background-color: #776e65;
+	border-radius: 6px;
+	font-size: 0;
 }
 
 .members{
 	margin: 1px 3px 1px 3px;
+	max-width: 50px;
+}
+
+#reset {
+	margin-left: 80px;
+	display: inline-block;
+}
+
+#top-buttons {
+	margin: 0 auto;
+	max-width: 900px;
+	height: 30px;
+	font-size: 18px;
 }
 
 body {
 	background-color: rgba(40,40,40,1);
 	color: grey;
+	font-family: arial;
+	color: #776e65;
+}
 
+#newChar {
+	position: fixed;
+	background-color: black;
+	height: 240px;
+	width: 450px;
+	margin: 0 auto;
+	margin-top: -16px;
+	margin-left: 166px;
+	font-size: 26px;
+	text-align: center;
+	padding: 30px;
+	opacity: .8;
+	border-radius: 4px;
+}
+
+.charOnPopUp {
+	width: 90px;
+	height: 90px;
+	display: inline-block;
+	margin: 0 auto;
+	margin-top: 20px;
+	position: relative;
 }
 
 #main-board{
 	margin: 0 auto;
-	max-width: 1000px;
-	height: 425px;
+	max-width: 900px;
+	height: 430px;
 }
 
 #display-moves {
-	margin-bottom: 6px;
+	margin: 0 10px 6px 170px;
+	display: inline-block;
+}
+
+#hero-level {
+	margin-bottom: -10px;
+
 }
 
 #scoreboard {
-	margin-left: 100px;
+	margin-left: 70px;
 	margin-top: 30px;
 	display: inline-block;
 	font-family: arial;
 	font-size: 20px;
-	width: 400px;
+	width: 330px;
 	height: 390px;
 }
+
+
+
+@media (max-width: 500px){ 
+	#name-2048 {
+		display: block;
+		text-align: center;
+		font-family: Tahoma;
+		width: 100%;
+		margin-left: 10px;
+		margin-top: 10px;
+		font-size: 50px;
+	}
+
+	#crisis {
+		display: block;
+		width: 250px;
+		margin: 0 auto;
+		margin-top: -40px;
+	}
+
+	#full-title {
+		max-width: 100%;
+		margin: 0 auto;
+
+	}
+	#main-board {
+		height: 1200px;
+		width: 100%;
+	}
+	#board {
+		display: block;
+		max-width: 100%;
+		float: none;
+		margin: 0;
+		padding: 0 auto;
+	}
+
+	#scoreboard {
+		display: block;
+		margin-left: 10px;
+		margin-top: 30px;
+		font-size: 16px;
+		width: 100%;
+		height: 500px;
+	}
+	.box {
+		height: (100% / 4);
+		width: (100% / 4);
+		margin: 3px;
+	}
+
+	.boxImg {
+		height: (100% / 4);
+		width: (100% / 4);
+		display: block;
+	}
+	
+	#reset {
+		margin-left: 60px;
+	}
+
+	#display-moves {
+		margin: 0 10px 6px 100px;
+	}
+	
+
+	
+	#instructions {
+		max-width: 100%;
+		margin: 0 auto;
+		font-size: 16px;
+		margin-bottom: 20px;
+		margin-top: 50px;
+	}
+
+	#top-buttons {
+		width: 100%;
+	}
+
+}
+
+
+
+
+
+
+
+
+

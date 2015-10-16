@@ -2,6 +2,8 @@
 
 __*Game clone designed by Tara Strauss*__
 
+![](https://i.imgur.com/KpDmvZv.png)
+
 ###User Stories
 
 **Role**: ages 6 to ~ , mostly people who like brain teasers or logic puzzles and are nerdy about DC superheroes
@@ -34,7 +36,7 @@ __*Game clone designed by Tara Strauss*__
 
 - As a player, I see buttons with superhero symbols faded in the background, with a number in the foreground so I feel like I'm forming the justice league if I win!
 
--> ![alt text](http://i.imgur.com/ZaBqGM5.jpg?3 =250px) <-
+<center>![alt text](http://i.imgur.com/ZaBqGM5.jpg?3 =250px)</center>
 
 -> *(box design: superhero in pale colors in the* <-
 
