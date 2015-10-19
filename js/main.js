@@ -121,55 +121,55 @@ var clearHighestChar = function () {
 var render = function (){
 	jsArray.forEach (function (row, rowIndex) {
 		row.forEach (function (col, colIndex) {
-			$boxArray[rowIndex][colIndex].children().css('margin', '4');
+			$boxArray[rowIndex][colIndex].children().css({"top" : "0", "left" : "0"});
 
-			if (jsArray[rowIndex][colIndex] !== oldArray[rowIndex][colIndex]){
+			//if (jsArray[rowIndex][colIndex] !== oldArray[rowIndex][colIndex]){
 					switch (jsArray[rowIndex][colIndex]){
 						case 0: 
 							//$boxArray[rowIndex][colIndex].children().addClass('animated ').addClass(classType);//.addClass('animated').addClass('zoomOut');
 							//window.setTimeout(function () {
-							$boxArray[rowIndex][colIndex].children().attr('src','');
+							$boxArray[rowIndex][colIndex].children().attr('src','').css({"top" : "0", "left" : "0"});
 							//}, 1000); */ 
 						break;
 						case 1: 
-							$boxArray[rowIndex][colIndex].children().attr('src', supermanPath);//.addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', supermanPath).css({"top" : "0", "left" : "0"});//.addClass('animated').addClass('fadeIn');
 						break;Path
 						case 2: 
-							$boxArray[rowIndex][colIndex].children().attr('src', wonderWomanPath);//.addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', wonderWomanPath).css({"top" : "0", "left" : "0"});//.addClass('animated').addClass('fadeIn');
 						break;
 						case 4: 
-							$boxArray[rowIndex][colIndex].children().attr('src', theFlashPath);//.addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', theFlashPath).css({"top" : "0", "left" : "0"});//.addClass('animated').addClass('fadeIn');
 						break;
 						case 8: 
-							$boxArray[rowIndex][colIndex].children().attr('src', greenLanternPath);//.addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', greenLanternPath).css({"top" : "0", "left" : "0"});//.addClass('animated').addClass('fadeIn');
 						break;
 						case 16: 
-							$boxArray[rowIndex][colIndex].children().attr('src', blackCanaryPath);//.addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', blackCanaryPath).css({"top" : "0", "left" : "0"});//.addClass('animated').addClass('fadeIn');
 						break;
 						case 32: 
-							$boxArray[rowIndex][colIndex].children().attr('src', martianManhunterPath);//.addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', martianManhunterPath).css({"top" : "0", "left" : "0"});//.addClass('animated').addClass('fadeIn');
 						break;
 						case 64: 
-							$boxArray[rowIndex][colIndex].children().attr('src', zatanaPath);//.addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', zatanaPath).css({"top" : "0", "left" : "0"});//.addClass('animated').addClass('fadeIn');
 						break;
 						case 128: 
-							$boxArray[rowIndex][colIndex].children().attr('src', cyborgPath);//.addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', cyborgPath).css({"top" : "0", "left" : "0"});//.addClass('animated').addClass('fadeIn');
 						break;
 						case 256: 
-							$boxArray[rowIndex][colIndex].children().attr('src', aquamanPath);//.addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', aquamanPath).css({"top" : "0", "left" : "0"});//.addClass('animated').addClass('fadeIn');
 						break;
 						case 512: 
-							$boxArray[rowIndex][colIndex].children().attr('src', greenArrowPath);//.addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', greenArrowPath).css({"top" : "0", "left" : "0"});//.addClass('animated').addClass('fadeIn');
 						break;
 						case 1024: 
-							$boxArray[rowIndex][colIndex].children().attr('src', batmanPath);//.addClass('animated').addClass('fadeIn');
+							$boxArray[rowIndex][colIndex].children().attr('src', batmanPath).css({"top" : "0", "left" : "0"});//.addClass('animated').addClass('fadeIn');
 						break;
 					}
 					/*window.setTimeout(function () {
 						$boxArray[rowIndex][colIndex].children().removeClass('fadeIn');
 					}, 500);
 				}, 800);*/		
-			}
+			//}
 		});
 	});
 	displayMovesFunction();
@@ -316,10 +316,14 @@ var newCharPopUp = function (oldChar, newChar, charPath) {
 	$mainBoard.prepend($('<div>').fadeIn().attr("id", "newChar").html(oldChar + " has recruited " + newChar + " to join The Justice League! Press return to continue. <br>").css('zIndex', '20'));
 	$('#newChar').append($('<img>').attr('src', charPath).addClass('charOnPopUp'));
 	$(document).keyup(function (key){
-	if (key.which === 13) {
-		$('#newChar').remove();
-	}
-});
+		if (key.which === 37 || key.which === 38 || key.which === 39 || key.which === 40) {
+			key.preventDefault();
+		}
+		else if (key.which === 13) {
+			$('#newChar').remove();
+		}
+	
+	});
 }
 
 //************************************************************************
@@ -378,36 +382,37 @@ var setToWonderWoman = function (row, col) {
 
 var animateBox = function (translation, direction) {
 	var $box;
-	var distanceToMove;
+	var distanceToMove = 0;
 	translation.forEach(function (boxObject) {
+		console.log (boxObject.startPosition[0] + "," + boxObject.startPosition[1] + " is moving " + boxObject.boxesMoved + " spaces to the " + direction);
 		$box = $boxArray[boxObject.startPosition[0]][boxObject.startPosition[1]].children();
 		distanceToMove = (90 * boxObject.boxesMoved) + (8 * boxObject.boxesMoved);
 		if (direction === "up") {
 			$box.animate({'top': '-=' + distanceToMove}, 'slow');
 			window.setTimeout(function () {
 				render();
-				$box.css('margin-top', '0');
+				$box.css('top', '0');
 			}, 1000);
 		}
 		if (direction === "down") {
-			$box.animate({'up': '-=' + distanceToMove}, 'slow');
+			$box.animate({'top': '+=' + distanceToMove}, 'slow');
 			window.setTimeout(function () {
 				render();
-				$box.css('margin-bottom', '0');
+				$box.css('top', '0');
 			}, 1000);
 		}
 		if (direction === "left") {
 			$box.animate({'left': '-=' + distanceToMove}, 'slow');
 			window.setTimeout(function () {
 				render();
-				$box.css('margin-left', '0');
+				$box.css('left', '0');
 			}, 1000);
 		}
 		if (direction === "right") {
-			$box.animate({'right': '-=' + distanceToMove}, 'slow');
+			$box.animate({'left': '+=' + distanceToMove}, 'slow');
 			window.setTimeout(function () {
 				render();
-				$box.css('margin-right', '0');
+				$box.css('left', '0');
 			}, 1000);
 		}
 
@@ -429,7 +434,7 @@ var moveUp = function () {
 	var colArray;
 	var currentBox = {};
 	var translation = [];
-	var boxesMoved;
+	var boxesMoved = 0;
 	//loop through the array by column
 	for (var colIndex = 0; colIndex <= 3; colIndex++) {
 		colArray = [false, false, false, false];
@@ -485,15 +490,13 @@ var moveUp = function () {
 			currentBox.boxesMoved = boxesMoved;
 			translation.push(currentBox); 
 
-			if (boxesMoved !== 0) {
-				animateBox(translation, "up");
-			}
 		}
 
 	}
 
 	//check to see if a move was made. If it was, load a new character!
 	if (wasAMove) {
+		animateBox(translation, "up");
 		window.setTimeout(function () {
 			loadChar();
 			render();
@@ -511,7 +514,7 @@ var moveDown = function () {
 	var colArray;
 	var currentBox = {};
 	var translation = [];
-	var boxesMoved;
+	var boxesMoved = 0;
 	//loop through the game by column
 	for (var colIndex = 0; colIndex <= 3; colIndex++) {
 		colArray = [false, false, false, false];
@@ -566,16 +569,13 @@ var moveDown = function () {
 
 			currentBox.boxesMoved = boxesMoved;
 			translation.push(currentBox); 
-
-			if (boxesMoved !== 0) {
-				animateBox(translation, "down");
-			}
 		//end the for loop through row
 		}
 	//end the for loop through column
 	}
 	//check to see if a move was made. If it was, load a new character!
 	if (wasAMove) {
+		animateBox(translation, "down");
 		window.setTimeout(function () {
 			render();
 			loadChar();
@@ -594,7 +594,7 @@ var moveLeft = function () {
 	var rowArray;
 	var currentBox = {};
 	var translation = [];
-	var boxesMoved;
+	var boxesMoved = 0;
 	//loop through the game by row
 	for (var rowIndex = 0; rowIndex <=3; rowIndex++) {
 		rowArray = [false, false, false, false];
@@ -645,15 +645,13 @@ var moveLeft = function () {
 			} while (!combined);	
 			currentBox.boxesMoved = boxesMoved;
 			translation.push(currentBox); 
-			if (boxesMoved !== 0) {
-				animateBox(translation, "left");
-			}
 		//end the for loop through column
 		}
 	//end the for loop through row
 	}
 	//check to see if a move was made. If it was, load a new character!
 	if (wasAMove) {
+		animateBox(translation, "left");
 		window.setTimeout(function () {
 			render();
 			loadChar();
@@ -670,7 +668,7 @@ var moveRight = function () {
 	var rowArray;
 	var currentBox = {};
 	var translation = [];
-	var boxesMoved;
+	var boxesMoved = 0;
 	//loop through the game by row
 	for (var rowIndex = 0; rowIndex <=3; rowIndex++) {
 		rowArray = [false, false, false, false];
@@ -723,15 +721,13 @@ var moveRight = function () {
 			} while (!combined);
 			currentBox.boxesMoved = boxesMoved;
 			translation.push(currentBox); 
-			if (boxesMoved !== 0) {
-				animateBox(translation, "right");
-			}	
 		//end the for loop through column
 		}
 	//end the for loop through row
 	}
 	//check to see if a move was made. If it was, load a new character!
 	if (wasAMove) {
+		animateBox(translation, "right");
 		window.setTimeout(function () {
 			render();
 			loadChar();
